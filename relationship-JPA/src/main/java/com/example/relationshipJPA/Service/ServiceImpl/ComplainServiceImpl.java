@@ -25,8 +25,8 @@ public class ComplainServiceImpl implements ComplainService {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
 
     @Override
     public String RaiseComplain(Complain request , String userName) {
@@ -48,11 +48,10 @@ public class ComplainServiceImpl implements ComplainService {
     }
 
 
-    // doubt in get complainbyuserid API
     @Override
     public List<Complain> getComplainByUserId(Long id) {
-//       List<Complain> complain = complainRepository.findByfk_Mem_Id(id);
-        return null;
+       List<Complain> complain = complainRepository.findByfk_Mem_Id(id);
+        return complain;
 //        return null;
     }
 

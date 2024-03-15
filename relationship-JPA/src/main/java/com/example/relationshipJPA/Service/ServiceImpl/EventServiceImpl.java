@@ -2,13 +2,18 @@ package com.example.relationshipJPA.Service.ServiceImpl;
 
 import com.example.relationshipJPA.Entity.Event;
 import com.example.relationshipJPA.Entity.Member;
+import com.example.relationshipJPA.Exception.ResourceNotFoundException;
 import com.example.relationshipJPA.Repository.EventRepository;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +27,7 @@ public class EventServiceImpl implements EventService {
     private MemberRepository memberRepository;
     @Override
     public String RaiseEvent(Event request, String userName) {
+
         Member member = memberRepository.findByEmail(userName).get();
 
         Event event = new Event();
@@ -32,31 +38,37 @@ public class EventServiceImpl implements EventService {
         event.setMem_id(member);
 
         eventRepository.save(event);
+//        getAllDates();
         return "successfully created";
     }
 
     @Override
     public List<Event> getAllEvents() {
-        List<Event> events = eventRepository.findAll();
-        return events;
+        return eventRepository.findAll();
     }
 
     @Override
     public Event updateEvent(Event request, long id) {
         Event existingevent = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Could not find event"));
+                .orElseThrow(() -> new ResourceNotFoundException("Member","id",id));
         existingevent.setTitle(request.getTitle());
         existingevent.setFuncType(request.getFuncType());
         existingevent.setDateFrom(request.getDateFrom());
         existingevent.setDateTo(request.getDateTo());
-        Event updatedEvent = eventRepository.save(existingevent);
-        return updatedEvent;
+        return eventRepository.save(existingevent);
     }
 
-//    doubt in delete event API
     @Override
     public void deleteEvent(long id) {
-        Event event = eventRepository.findById(id).orElseThrow(() -> new RuntimeException("Couldn't find event'"));
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Member", "id", id));
         eventRepository.deleteById(id);
+    }
+
+    // doubt
+    @Override
+    public Boolean checkDateAvailable(LocalDate dateFrom, LocalDate dateTo) {
+        ResponseEntity<List<Event>> record = eventRepository.findEventsByDateFromOrDateTo(dateFrom, dateTo);
+        return record == null;
     }
 }

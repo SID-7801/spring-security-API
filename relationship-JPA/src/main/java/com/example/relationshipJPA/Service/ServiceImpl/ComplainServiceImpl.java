@@ -3,6 +3,7 @@ package com.example.relationshipJPA.Service.ServiceImpl;
 import com.example.relationshipJPA.Entity.Complain;
 import com.example.relationshipJPA.Entity.Member;
 import com.example.relationshipJPA.Entity.Status;
+import com.example.relationshipJPA.Exception.ResourceNotFoundException;
 import com.example.relationshipJPA.Repository.ComplainRepository;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.ComplainService;
@@ -25,8 +26,6 @@ public class ComplainServiceImpl implements ComplainService {
     @Autowired
     private MemberRepository memberRepository;
 
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
 
     @Override
     public String RaiseComplain(Complain request , String userName) {
@@ -52,13 +51,12 @@ public class ComplainServiceImpl implements ComplainService {
     public List<Complain> getComplainByUserId(Long id) {
        List<Complain> complain = complainRepository.findByfk_Mem_Id(id);
         return complain;
-//        return null;
     }
 
 
     public Complain completecomplain(Long id) {
         Complain complain = complainRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Complain","id",id));
         complain.setStatus(Status.COMPLETED);
         Complain complain1 = complainRepository.save(complain);
         return complain1;

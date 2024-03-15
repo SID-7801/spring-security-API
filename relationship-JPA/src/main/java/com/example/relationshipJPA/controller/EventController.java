@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,28 +23,39 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createEvent(@RequestBody Event request){
+    public ResponseEntity<String> createEvent(@RequestBody Event request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        eventService.RaiseEvent(request , username);
+
+        eventService.RaiseEvent(request, username);
         return ResponseEntity.ok("successfully created event");
     }
 
     @GetMapping("/getevents")
-    public ResponseEntity<List<Event>> getAllEvents(){
+    public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     @PutMapping("/{id}/update")
-    public ResponseEntity<Event> updateevent(@RequestBody Event request, @PathVariable("id") Long funcid){
+    public ResponseEntity<Event> updateevent(@RequestBody Event request, @PathVariable("id") Long funcid) {
         Event updatedevent = eventService.updateEvent(request, funcid);
         return ResponseEntity.ok(updatedevent);
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<String> deleteevent(@PathVariable("id") Long funcid){
+    public ResponseEntity<String> deleteevent(@PathVariable("id") Long funcid) {
         eventService.deleteEvent(funcid);
         return ResponseEntity.ok("event deleted");
+    }
+
+    //doubt
+    @PostMapping("/checkBookings")
+    public ResponseEntity<String> checkDate(@RequestParam LocalDate dateFrom, @RequestParam LocalDate dateTo) {
+        if (eventService.checkDateAvailable(dateFrom, dateTo)) {
+            return new ResponseEntity<>("Bookings available", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Booking not available for this date", HttpStatus.BAD_REQUEST);
+        }
     }
 }

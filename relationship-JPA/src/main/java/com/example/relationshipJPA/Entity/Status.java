@@ -2,5 +2,9 @@ package com.example.relationshipJPA.Entity;
 
 public enum Status {
     PROGRESS,
-    COMPLETED
+    COMPLETED,
+
+    CHECKED_IN,
+
+    CHECKED_OUT
 }

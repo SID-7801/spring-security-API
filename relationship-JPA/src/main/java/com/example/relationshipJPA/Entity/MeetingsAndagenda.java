@@ -2,37 +2,31 @@ package com.example.relationshipJPA.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalTime;
 
+@Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Event {
+public class MeetingsAndagenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long funcid;
+    private long Meetingid;
 
     @Column(nullable = false)
-    private String title;
+    private String agenda;
 
     @Column(nullable = false)
-    private String funcType;
+    private LocalDate date;
 
     @Column(nullable = false)
-    private Date dateFrom;
+    private LocalTime time;
 
-    @Column(nullable = false)
-    private Date dateTo;
+    private String conclusion;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_mem_id")
-    private Member mem_id;
 }

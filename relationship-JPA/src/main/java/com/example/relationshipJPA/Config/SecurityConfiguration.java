@@ -52,7 +52,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
 
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
+                .authorizeHttpRequests(request -> request.requestMatchers("/lwresident/v1/auth/**")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

@@ -1,6 +1,6 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Entity.Mail;
+import com.example.relationshipJPA.Dao.Resquest.Mail;
 import com.example.relationshipJPA.Service.sendmail;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

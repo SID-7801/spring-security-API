@@ -9,11 +9,8 @@ import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.ComplainService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 
 @Service

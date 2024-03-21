@@ -47,6 +47,9 @@ public class Member implements UserDetails {
     private Event event;
 
     @OneToOne(mappedBy = "member")
+    private ForgetPassword forgetPassword;
+
+    @OneToOne(mappedBy = "member")
     @JsonIgnore
     private RefreshToken refreshToken;
 

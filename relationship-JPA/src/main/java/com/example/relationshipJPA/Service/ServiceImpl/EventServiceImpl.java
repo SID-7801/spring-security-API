@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +22,7 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private MemberRepository memberRepository;
+
     @Override
     public String RaiseEvent(Event request, String userName) {
 

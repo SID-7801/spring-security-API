@@ -16,13 +16,13 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1/auth")
+@RequestMapping("lwresident/v1/complaint")
 public class ComplainController {
 
     @Autowired
     private ComplainService complainService;
 
-    @PostMapping("/raise")
+    @PostMapping("/register-complaint")
     public ResponseEntity<String> raisecomplain(@RequestBody Complain request)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -31,7 +31,7 @@ public class ComplainController {
         return ResponseEntity.ok("complaint raised successfully");
     }
 
-    @GetMapping("/view-complains")
+    @GetMapping("/view-complaints")
     public ResponseEntity<List<Complain>> getAllComplains(){
         List<Complain> complains = complainService.getAllComplains();
         return new ResponseEntity<>(complains , HttpStatus.OK);

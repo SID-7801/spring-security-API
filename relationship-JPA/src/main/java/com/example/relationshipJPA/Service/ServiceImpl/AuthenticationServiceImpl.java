@@ -47,9 +47,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(Role.USER).build();
         memberRepository.save(member);
         var jwt = jwtService.generateToken(member);
-        var refreshToken = refreshTokenService.createRefreshToken(member.getEmail());
+//        var refreshToken = refreshTokenService.createRefreshToken(member.getEmail());
 
-        return JwtAuthenticationResponse.builder().token(jwt).refreshToken(refreshToken.getRefreshToken()).build();
+        return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
     @Override
@@ -62,9 +62,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException("Couldn't find'"));
 
         var jwt = jwtService.generateToken(member);
-        var refreshToken = refreshTokenService.createRefreshToken(member.getEmail());
+//        var refreshToken = refreshTokenService.createRefreshToken(member.getEmail());
 
-        return JwtAuthenticationResponse.builder().token(jwt).refreshToken(refreshToken.getRefreshToken()).build();
+        return JwtAuthenticationResponse.builder().token(jwt).build();
     }
+
+
 }
 

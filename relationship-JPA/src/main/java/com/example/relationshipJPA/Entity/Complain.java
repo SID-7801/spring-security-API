@@ -21,8 +21,11 @@ public class Complain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long comid;
 
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private LocalDateTime complaintDate;
 
     @Enumerated(EnumType.STRING)

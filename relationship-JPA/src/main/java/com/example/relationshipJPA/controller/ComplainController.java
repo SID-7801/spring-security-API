@@ -16,14 +16,14 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("lwresident/v1/complaint")
 public class ComplainController {
 
     @Autowired
     private ComplainService complainService;
-
     @PostMapping("/register-complaint")
-    public ResponseEntity<String> raisecomplain(@RequestBody Complain request)
+    public ResponseEntity<String> raiseComplain(@RequestBody Complain request)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -31,25 +31,22 @@ public class ComplainController {
         return ResponseEntity.ok("complaint raised successfully");
     }
 
+    // secretory view all complaint api
     @GetMapping("/view-complaints")
     public ResponseEntity<List<Complain>> getAllComplains(){
         List<Complain> complains = complainService.getAllComplains();
         return new ResponseEntity<>(complains , HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Complain>> getComplains(@PathVariable("id") Long id) {
+    @GetMapping("/view-my-complaints/{id}")
+    public ResponseEntity<List<Complain>> getComplains(@PathVariable Long id) {
         List<Complain> complain = complainService.getComplainByUserId(id);
         return new ResponseEntity<>(complain , HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}/complete")
-    public ResponseEntity<Complain> completeComplain(@PathVariable("id") Long id){
+    @PatchMapping("/solve")
+    public ResponseEntity<Complain> completeComplain(@RequestParam("id") Long id){
         Complain complain = complainService.completecomplain(id);
         return new ResponseEntity<>(complain, HttpStatus.OK);
     }
-
 }
-
-
-

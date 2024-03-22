@@ -3,7 +3,10 @@ package com.example.relationshipJPA.Entity;
 
 
 public enum Role {
-    USER,
-    ADMIN
+    ADMIN,
+    MEMBER,
+    SECRETORY,
+    COMITY,
+    SECURITY_GUARD,
+    GUEST_USER
 }
-

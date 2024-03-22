@@ -1,7 +1,6 @@
 package com.example.relationshipJPA.Service.ServiceImpl;
 
 
-
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
-
     @Autowired
     private MemberRepository memberRepository;
+
     @Override
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
@@ -24,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
             @Override
             public UserDetails loadUserByUsername(String username) {
                 return memberRepository.findByEmail(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("user mot found"));
+                        .orElseThrow(() -> new UsernameNotFoundException("user not found"));
             }
         };
     }

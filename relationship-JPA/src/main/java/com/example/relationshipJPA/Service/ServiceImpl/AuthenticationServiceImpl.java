@@ -1,7 +1,6 @@
 package com.example.relationshipJPA.Service.ServiceImpl;
 
 
-
 import com.example.relationshipJPA.Dao.JwtAuthenticationResponse;
 import com.example.relationshipJPA.Dao.Resquest.Signin;
 import com.example.relationshipJPA.Dao.Resquest.Signup;
@@ -35,21 +34,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private RefreshTokenService refreshTokenService;
 
-
     @Override
-    public JwtAuthenticationResponse signup(Signup request) {
-        var member = Member.builder().name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .wing(request.getWing())
-                .flat(request.getFlat())
-                .mobile(request.getMobile())
-                .role(Role.USER).build();
-        memberRepository.save(member);
-        var jwt = jwtService.generateToken(member);
-//        var refreshToken = refreshTokenService.createRefreshToken(member.getEmail());
-
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+    public Boolean signup(Signup request) {
+        if (checkUser(request.getEmail())) {
+            var member = Member.builder().name(request.getName())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .wing(request.getWing())
+                    .flat(request.getFlat())
+                    .mobile(request.getMobile())
+                    .role(request.getRole()).build();
+            memberRepository.save(member);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -62,11 +61,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException("Couldn't find'"));
 
         var jwt = jwtService.generateToken(member);
-//        var refreshToken = refreshTokenService.createRefreshToken(member.getEmail());
-
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
+    public Boolean checkUser(String email) {
+        var checkMember = memberRepository.findByEmail(email);
+        if (checkMember.isEmpty())
+            return true;
+        else
+            return false;
+    }
 
 }
 

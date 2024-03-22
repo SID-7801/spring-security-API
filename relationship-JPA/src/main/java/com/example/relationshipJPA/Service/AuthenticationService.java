@@ -8,7 +8,7 @@ import com.example.relationshipJPA.Dao.Resquest.Signup;
 
 public interface AuthenticationService {
 
-    JwtAuthenticationResponse signup(Signup request);
+    Boolean signup(Signup request);
 
     JwtAuthenticationResponse signin(Signin request);
 

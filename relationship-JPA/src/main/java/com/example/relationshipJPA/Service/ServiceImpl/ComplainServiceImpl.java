@@ -10,6 +10,9 @@ import com.example.relationshipJPA.Service.ComplainService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -30,6 +33,8 @@ public class ComplainServiceImpl implements ComplainService {
 
         Complain complain = new Complain();
         complain.setDescription(request.getDescription());
+        complain.setTitle(request.getTitle());
+        complain.setComplaintDate(LocalDateTime.now());
         complain.setStatus(Status.PROGRESS);
         complain.setMem_id(member);
 

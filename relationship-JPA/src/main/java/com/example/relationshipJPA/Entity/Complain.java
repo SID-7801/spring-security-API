@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 @Data
 @Builder
@@ -19,6 +22,8 @@ public class Complain {
     private long comid;
 
     private String description;
+    private String title;
+    private LocalDateTime complaintDate;
 
     @Enumerated(EnumType.STRING)
     private Status status;

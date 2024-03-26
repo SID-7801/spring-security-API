@@ -14,4 +14,5 @@ public interface ComplainService {
     List<Complain> getComplainByUserId(Long mem_id);
 
     Complain completecomplain(Long id);
+    Boolean deleteComplaint(Long compId);
 }

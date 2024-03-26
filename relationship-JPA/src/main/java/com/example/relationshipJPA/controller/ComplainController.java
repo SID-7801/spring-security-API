@@ -2,6 +2,7 @@ package com.example.relationshipJPA.controller;
 
 import com.example.relationshipJPA.Entity.Complain;
 import com.example.relationshipJPA.Service.ComplainService;
+import com.example.relationshipJPA.util.Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,5 +49,15 @@ public class ComplainController {
     public ResponseEntity<Complain> completeComplain(@RequestParam("id") Long id){
         Complain complain = complainService.completecomplain(id);
         return new ResponseEntity<>(complain, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteComplaint(@PathVariable("id") Long compId)
+    {
+        if(complainService.deleteComplaint(compId))
+        {
+            return Utils.getResponseEntity("Complaint deleted successfully", HttpStatus.OK);
+        }
+        return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

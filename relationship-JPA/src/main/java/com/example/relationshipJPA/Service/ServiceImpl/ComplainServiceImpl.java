@@ -64,6 +64,12 @@ public class ComplainServiceImpl implements ComplainService {
         return complain1;
     }
 
+    @Override
+    public Boolean deleteComplaint(Long compId) {
+        complainRepository.findById(compId).orElseThrow(() -> new RuntimeException("complaint is not exists with complaint id :" + compId));
+        complainRepository.deleteById(compId);
+        return true;
+    }
 }
 
 

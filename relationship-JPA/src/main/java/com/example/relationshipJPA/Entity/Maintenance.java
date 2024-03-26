@@ -24,7 +24,7 @@ public class Maintenance {
     private LocalDate dueDate;
 
     @Column(nullable = false)
-    private LocalDate PaidDate;
+    private LocalDate paidDate;
 
     @Column(nullable = false)
     private double amount;

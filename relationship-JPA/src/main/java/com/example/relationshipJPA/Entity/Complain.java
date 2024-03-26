@@ -31,7 +31,7 @@ public class Complain {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "fk_mem_id")
     private Member mem_id;
 }

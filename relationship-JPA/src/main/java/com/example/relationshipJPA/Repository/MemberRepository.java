@@ -13,6 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
+
+
     Optional<Member> findByEmail(String email);
     @Query(value = "SELECT email FROM Member", nativeQuery = true)
     String[] findAllEmail();

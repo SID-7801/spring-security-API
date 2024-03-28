@@ -72,5 +72,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return false;
     }
 
+    // get current logged in user details
+    @Override
+    public Member getUserData(String username) {
+        return memberRepository.findByEmail(username).orElseThrow();
+    }
+
+    @Override
+    public boolean updateProfile(Signup request, String username) {
+        Member user = memberRepository.findByEmail(username).orElseThrow();
+        user.setEmail(user.getEmail());
+        user.setName(request.getName());
+        user.setWing(request.getWing());
+        user.setFlat(request.getFlat());
+        user.setMobile(request.getMobile());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(user.getRole());
+
+        memberRepository.save(user);
+        return true;
+    }
 }
 

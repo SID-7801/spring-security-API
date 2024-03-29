@@ -16,7 +16,7 @@ public class MeetingsAndagenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Meetingid;
+    private long meetingid;
 
     @Column(nullable = false)
     private String agenda;

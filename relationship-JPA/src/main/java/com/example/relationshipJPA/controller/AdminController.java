@@ -1,5 +1,6 @@
 package com.example.relationshipJPA.controller;
 
+import com.example.relationshipJPA.Dao.Resquest.MemberDto;
 import com.example.relationshipJPA.Entity.Member;
 import com.example.relationshipJPA.Service.AdminService;
 import com.example.relationshipJPA.util.Utils;

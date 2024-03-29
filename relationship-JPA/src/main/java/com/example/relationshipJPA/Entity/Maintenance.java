@@ -15,9 +15,9 @@ public class Maintenance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Maintain_id;
+    private long maintain_id;
 
-   @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Month month;
 
     @Column(nullable = false)

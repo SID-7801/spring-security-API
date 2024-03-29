@@ -13,7 +13,7 @@ public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Sr_id;
+    private Long sr_id;
 
     @Column(nullable = false)
     private String name;

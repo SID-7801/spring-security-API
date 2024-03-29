@@ -51,7 +51,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(request -> request.requestMatchers("/lwresident/v1/auth/**")
+                .authorizeHttpRequests(request -> request.requestMatchers("/lwresident/v1/auth/**",
+                        "/lwresident/v1/guest/**"
+                                )
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
@@ -59,4 +61,3 @@ public class SecurityConfiguration {
         return http.build();
     }
 }
-

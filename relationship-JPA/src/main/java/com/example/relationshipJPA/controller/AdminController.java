@@ -35,7 +35,6 @@ public class AdminController {
             return Utils.getResponseEntity("Internal server error!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     // view approvals api for admin
     @GetMapping("/view-requests")
     public List<Member> viewNotApprovedUsers()

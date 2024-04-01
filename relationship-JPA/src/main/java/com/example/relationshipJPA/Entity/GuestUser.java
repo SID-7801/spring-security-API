@@ -25,6 +25,7 @@ public class GuestUser {
 
     @Column(nullable = false)
     private String flat;
+    private String mobile;
 
     private LocalDateTime checkIn;
 

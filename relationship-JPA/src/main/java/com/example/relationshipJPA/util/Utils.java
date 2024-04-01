@@ -8,6 +8,6 @@ public class Utils {
     }
 
     public static ResponseEntity<String> getResponseEntity(String message, HttpStatus status) {
-        return new ResponseEntity<>("{\"message\" : " + message + "}", status);
+        return new ResponseEntity<>("{\"message\" : " + "\"" + message + "\"" + "}", status);
     }
 }

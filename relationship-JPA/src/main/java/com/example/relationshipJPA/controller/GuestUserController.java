@@ -31,9 +31,9 @@ public class GuestUserController {
         }
     }
 
-    @PatchMapping("/{name}/checkout")
-    public ResponseEntity<String> checkOut(@PathVariable String name) {
-        if (guestUserService.checkOutGuest(name)) {
+    @PatchMapping("/{id}/checkout")
+    public ResponseEntity<String> checkOut(@PathVariable String id) {
+        if (guestUserService.checkOutGuest(id)) {
             return ResponseEntity.ok("updated");
         }
         return new ResponseEntity<>("not found", HttpStatus.BAD_REQUEST);

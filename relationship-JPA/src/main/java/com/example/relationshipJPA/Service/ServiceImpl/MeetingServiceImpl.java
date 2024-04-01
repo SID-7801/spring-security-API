@@ -25,6 +25,7 @@ public class MeetingServiceImpl implements MeetingService {
         meetingsAndagenda.setAgenda(request.getAgenda());
         meetingsAndagenda.setDate(request.getDate());
         meetingsAndagenda.setTime(request.getTime());
+        meetingsAndagenda.setConclusion(null);
 
         sendmail.sentMail(meetingsAndagenda.getAgenda(), meetingsAndagenda.getDate() + " " + meetingsAndagenda.getTime());
 

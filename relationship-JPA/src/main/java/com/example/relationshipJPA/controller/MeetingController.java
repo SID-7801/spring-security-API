@@ -36,7 +36,8 @@ public class MeetingController {
 
     // ADMIN & Secretory api for delete meeting
     @DeleteMapping("/{id}/deleteMeeting")
-    public ResponseEntity<String> deleteMeeting(@PathVariable("id") Long meetingid){
+    public ResponseEntity<String> deleteMeeting(@PathVariable("id") Long meetingid)
+    {
         meetingService.deleteMeeting(meetingid);
         return ResponseEntity.ok("deleted successfully");
     }

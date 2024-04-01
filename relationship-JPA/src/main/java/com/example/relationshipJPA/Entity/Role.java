@@ -6,7 +6,7 @@ public enum Role {
     ADMIN,
     MEMBER,
     SECRETORY,
-    COMITY,
-    SECURITY_GUARD,
+    COMMITTEE,
+    GUARD,
     GUEST_USER
 }

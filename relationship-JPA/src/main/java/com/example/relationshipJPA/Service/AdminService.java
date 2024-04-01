@@ -8,4 +8,5 @@ import java.util.List;
 public interface AdminService {
     List<Member> getMembers();
     Boolean deleteMember(Long id);
+    List<Member> viewNotApprovedUsers();
 }

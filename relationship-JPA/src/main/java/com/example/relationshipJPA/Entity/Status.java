@@ -6,5 +6,7 @@ public enum Status {
     CHECKED_IN,
     CHECKED_OUT,
     PAID,
-    UNPAID
+    UNPAID,
+    APPROVED,
+    NOT_APPROVED,
 }

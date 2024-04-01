@@ -21,6 +21,7 @@ public class GuestUserServiceImpl implements GuestUserService {
         guestUser.setName(request.getName());
         guestUser.setWing(request.getWing());
         guestUser.setFlat(request.getFlat());
+        guestUser.setMobile(request.getMobile());
         guestUser.setCheckIn(LocalDateTime.now());
         guestUser.setStatus(Status.CHECKED_IN);
 

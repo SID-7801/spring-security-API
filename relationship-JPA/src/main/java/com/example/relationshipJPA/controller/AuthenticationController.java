@@ -28,7 +28,6 @@ public class AuthenticationController {
 
     @Autowired
     private final AuthenticationService authenticationService;
-
     @Autowired
     private JwtService jwtService;
     private UserDetails userDetails;

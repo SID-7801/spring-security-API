@@ -11,12 +11,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MeetingRequest {
-
     private String agenda;
-
     private LocalDate date;
-
     private LocalTime time;
-
     private String conclusion;
 }

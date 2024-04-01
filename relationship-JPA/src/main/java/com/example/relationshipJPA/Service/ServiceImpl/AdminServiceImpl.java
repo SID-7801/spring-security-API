@@ -27,4 +27,10 @@ public class AdminServiceImpl implements AdminService {
         memberRepository.deleteById(id);
         return true;
     }
+
+    @Override
+    public List<Member> viewNotApprovedUsers()
+    {
+        return memberRepository.findUserByStatus();
+    }
 }

@@ -21,12 +21,13 @@ public class Member implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false)
-
     private String name;
-    @Column(nullable = false , unique = true)
 
+    @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
 
     private String password;
@@ -43,6 +44,9 @@ public class Member implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @OneToOne(mappedBy = "mem_id", orphanRemoval = true)
     private Event event;

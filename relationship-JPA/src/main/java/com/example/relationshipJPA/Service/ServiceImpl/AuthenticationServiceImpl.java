@@ -6,6 +6,7 @@ import com.example.relationshipJPA.Dao.Resquest.Signin;
 import com.example.relationshipJPA.Dao.Resquest.Signup;
 import com.example.relationshipJPA.Entity.Member;
 import com.example.relationshipJPA.Entity.Role;
+import com.example.relationshipJPA.Entity.Status;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.AuthenticationService;
 import com.example.relationshipJPA.Service.JwtService;
@@ -23,7 +24,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private MemberRepository memberRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -31,20 +31,33 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private JwtService jwtService;
 
-    @Autowired
-    private RefreshTokenService refreshTokenService;
-
     @Override
     public Boolean signup(Signup request) {
         if (checkUser(request.getEmail())) {
-            var member = Member.builder().name(request.getName())
-                    .email(request.getEmail())
-                    .password(passwordEncoder.encode(request.getPassword()))
-                    .wing(request.getWing())
-                    .flat(request.getFlat())
-                    .mobile(request.getMobile())
-                    .role(request.getRole()).build();
-            memberRepository.save(member);
+            Role userRole = request.getRole();
+            if (userRole == Role.MEMBER) {
+                var member = Member.builder().name(request.getName())
+                        .email(request.getEmail())
+                        .password(passwordEncoder.encode(request.getPassword()))
+                        .wing(request.getWing())
+                        .flat(request.getFlat())
+                        .mobile(request.getMobile())
+                        .role(userRole)
+                        .status(Status.APPROVED)
+                        .build();
+                memberRepository.save(member);
+            } else {
+                var member = Member.builder().name(request.getName())
+                        .email(request.getEmail())
+                        .password(passwordEncoder.encode(request.getPassword()))
+                        .wing(request.getWing())
+                        .flat(request.getFlat())
+                        .mobile(request.getMobile())
+                        .role(request.getRole())
+                        .status(Status.NOT_APPROVED)
+                        .build();
+                memberRepository.save(member);
+            }
             return true;
         } else {
             return false;
@@ -56,10 +69,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(),
                         request.getPassword()));
-
         var member = memberRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Couldn't find'"));
-
         var jwt = jwtService.generateToken(member);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
@@ -92,5 +103,5 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         memberRepository.save(user);
         return true;
     }
-}
 
+}

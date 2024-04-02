@@ -8,7 +8,7 @@ public interface GuestUserService {
 
     Boolean checkInGuest(GuestUser request);
 
-    Boolean checkOutGuest(String name);
+    Boolean checkOutGuest(Long id);
 
     List<GuestUser> giveCheckInUsers();
 

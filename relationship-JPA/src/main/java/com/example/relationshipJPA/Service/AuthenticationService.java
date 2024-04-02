@@ -10,7 +10,6 @@ import com.example.relationshipJPA.Entity.Member;
 public interface AuthenticationService {
 
     Boolean signup(Signup request);
-
     JwtAuthenticationResponse signin(Signin request);
     boolean updateProfile(Signup request, String username);
     Member getUserData(String username);

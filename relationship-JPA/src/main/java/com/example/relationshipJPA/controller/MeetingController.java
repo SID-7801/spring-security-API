@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("lwresident/v1/meetings")
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("lwresident/v1/meetings")
 public class MeetingController {
 
     @Autowired
@@ -28,14 +28,14 @@ public class MeetingController {
     }
 
     // ADMIN & Secretory api for  update conclusion of meeting
-    @PatchMapping("/{id}/updateConclusion")
+    @PatchMapping("/updateConclusion/{id}")
     public ResponseEntity<String> updateConclusion(@PathVariable("id") Long meetingid, @RequestBody MeetingRequest request){
         meetingService.updateConclusion(meetingid,request);
         return ResponseEntity.ok("Successfully updated");
     }
 
     // ADMIN & Secretory api for delete meeting
-    @DeleteMapping("/{id}/deleteMeeting")
+    @DeleteMapping("/deleteMeeting/{id}")
     public ResponseEntity<String> deleteMeeting(@PathVariable("id") Long meetingid)
     {
         meetingService.deleteMeeting(meetingid);

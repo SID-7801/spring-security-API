@@ -31,8 +31,8 @@ public class GuestUserController {
         }
     }
 
-    @PatchMapping("/{id}/checkout")
-    public ResponseEntity<String> checkOut(@PathVariable String id) {
+    @PatchMapping("/checkout/{id}")
+    public ResponseEntity<String> checkOut(@PathVariable Long id) {
         if (guestUserService.checkOutGuest(id)) {
             return ResponseEntity.ok("updated");
         }

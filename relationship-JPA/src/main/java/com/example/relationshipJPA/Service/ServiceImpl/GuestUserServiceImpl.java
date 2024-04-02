@@ -30,8 +30,8 @@ public class GuestUserServiceImpl implements GuestUserService {
     }
 
     @Override
-    public Boolean checkOutGuest(String name) {
-        GuestUser guestUser = guestUserRepository.findByName(name);
+    public Boolean checkOutGuest(Long id) {
+        GuestUser guestUser = guestUserRepository.findById(id).orElseThrow();
         guestUser.setCheckOut(LocalDateTime.now());
         guestUser.setStatus(Status.CHECKED_OUT);
         guestUserRepository.save(guestUser);

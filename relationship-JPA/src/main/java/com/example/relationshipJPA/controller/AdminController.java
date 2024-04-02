@@ -1,6 +1,5 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Dao.Resquest.MemberDto;
 import com.example.relationshipJPA.Entity.Member;
 import com.example.relationshipJPA.Service.AdminService;
 import com.example.relationshipJPA.util.Utils;
@@ -12,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lwresident/v1/admin")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("lwresident/v1/admin")
 public class AdminController {
+
     @Autowired
     private AdminService adminService;
 
@@ -35,6 +36,7 @@ public class AdminController {
             return Utils.getResponseEntity("Internal server error!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     // view approvals api for admin
     @GetMapping("/view-requests")
     public List<Member> viewNotApprovedUsers()
@@ -42,4 +44,16 @@ public class AdminController {
         return adminService.viewNotApprovedUsers();
     }
 
+    // approve users
+    @PatchMapping("/approve/{id}")
+    public ResponseEntity<String> approveUser(@PathVariable Long id)
+    {
+        if(adminService.approveUser(id))
+        {
+            return Utils.getResponseEntity("User approved successfully", HttpStatus.OK);
+        }
+        else{
+            return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

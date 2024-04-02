@@ -17,7 +17,7 @@ public class GuestUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)

@@ -2,6 +2,7 @@ package com.example.relationshipJPA.Service.ServiceImpl;
 
 import com.example.relationshipJPA.Dao.Resquest.MemberDto;
 import com.example.relationshipJPA.Entity.Member;
+import com.example.relationshipJPA.Entity.Status;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,13 @@ public class AdminServiceImpl implements AdminService {
     public List<Member> viewNotApprovedUsers()
     {
         return memberRepository.findUserByStatus();
+    }
+    @Override
+    public Boolean approveUser(Long id)
+    {
+        Member member = memberRepository.findById(id).orElseThrow();
+        member.setStatus(Status.APPROVED);
+        memberRepository.save(member);
+        return true;
     }
 }

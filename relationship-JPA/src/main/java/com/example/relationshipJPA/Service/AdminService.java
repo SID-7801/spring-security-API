@@ -9,4 +9,5 @@ public interface AdminService {
     List<Member> getMembers();
     Boolean deleteMember(Long id);
     List<Member> viewNotApprovedUsers();
+    Boolean approveUser(Long id);
 }

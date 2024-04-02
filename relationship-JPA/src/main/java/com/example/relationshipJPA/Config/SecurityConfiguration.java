@@ -51,8 +51,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(request -> request.requestMatchers("/lwresident/v1/auth/**",
-                        "/lwresident/v1/guest/**"
+                .authorizeHttpRequests(request -> request.requestMatchers(
+                        "/lwresident/v1/auth/**",
+                        "/lwresident/v1/guest/**",
+                                "/lwresident/v1/admin/**"
                                 )
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

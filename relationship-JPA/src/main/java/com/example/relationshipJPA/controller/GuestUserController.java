@@ -20,7 +20,7 @@ public class GuestUserController {
     private GuestUserService guestUserService;
 
     // check in guest user for guard
-    @PostMapping("/raiseEntry")
+    @PostMapping("/new-user")
     public ResponseEntity<String> raiseEntry(@RequestBody GuestUser request) {
         if (guestUserService.checkInGuest(request)) {
             return Utils.getResponseEntity("Guest user inserted successfully", HttpStatus.OK);
@@ -39,14 +39,14 @@ public class GuestUserController {
     }
 
     // view all checkIn guest users for guard
-    @GetMapping("/view-checkIn-user")
+    @GetMapping("/view-checkIn")
     public ResponseEntity<List<GuestUser>> viewCheckInUser() {
         List<GuestUser> view = guestUserService.giveCheckInUsers();
         return ResponseEntity.ok(view);
     }
 
     // view all guest users for guard and admin and secretory
-    @GetMapping("/viewVisitors")
+    @GetMapping("/view-visitors")
     public ResponseEntity<List<GuestUser>> viewVisitors() {
         List<GuestUser> guestUserList = guestUserService.viewGuestUsers();
         return ResponseEntity.ok(guestUserList);

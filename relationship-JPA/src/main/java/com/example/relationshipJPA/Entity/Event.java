@@ -1,5 +1,6 @@
 package com.example.relationshipJPA.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,12 +28,13 @@ public class Event {
     private String funcType;
 
     @Column(nullable = false)
-    private Date dateFrom;
+    private LocalDate dateFrom;
 
     @Column(nullable = false)
-    private Date dateTo;
+    private LocalDate dateTo;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "fk_mem_id")
     private Member mem_id;
 }

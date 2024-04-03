@@ -22,7 +22,7 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     // submit api for all the users
-    @PostMapping("/new")
+    @PostMapping("/submit")
     public ResponseEntity<String> saveFeedback(@RequestBody Feedback feedback) {
         feedbackService.saveFeedback(feedback);
         return Utils.getResponseEntity("Feedback submitted", HttpStatus.OK);

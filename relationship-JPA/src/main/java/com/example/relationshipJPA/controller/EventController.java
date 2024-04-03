@@ -57,11 +57,11 @@ public class EventController {
     // check available booking for all the users
     // not working properly
     @PostMapping("/check-bookings")
-    public ResponseEntity<String> checkDate(@RequestParam LocalDate dateFrom, @RequestParam LocalDate dateTo) {
-        if (eventService.checkDateAvailable(dateFrom, dateTo)) {
-            return new ResponseEntity<>("Bookings available", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Booking not available for this date", HttpStatus.BAD_REQUEST);
+    public Event checkDate(@RequestParam LocalDate dateFrom, @RequestParam LocalDate dateTo) {
+        if (dateFrom.equals(dateTo))
+            return eventService.checkSingleDateAvailable(dateFrom);
+        else {
+            return eventService.checkDateAvailable(dateFrom, dateTo);
         }
     }
 }

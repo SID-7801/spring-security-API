@@ -51,8 +51,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         return memberRepository.getAllId();
     }
 
-    public Maintenance checkMaintenanceValue(String email) {
-        Member member = memberRepository.findByEmail(email).get();
+    public Maintenance checkMaintenanceValue(Maintenance generatedMaintenance) {
         return null;
     }
 

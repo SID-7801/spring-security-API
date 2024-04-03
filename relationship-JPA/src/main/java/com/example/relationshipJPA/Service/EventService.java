@@ -20,5 +20,6 @@ public interface EventService {
 
 //    ResponseEntity<List<Event>> getAllDates(Event request, Date fromDate, Date toDate);
 
-    Boolean checkDateAvailable(LocalDate dateFrom, LocalDate dateTo);
+    Event checkDateAvailable(LocalDate dateFrom, LocalDate dateTo);
+    Event checkSingleDateAvailable(LocalDate dateFrom);
 }

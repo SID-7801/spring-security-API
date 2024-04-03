@@ -65,8 +65,12 @@ public class EventServiceImpl implements EventService {
 
     // doubt
     @Override
-    public Boolean checkDateAvailable(LocalDate dateFrom, LocalDate dateTo) {
-        ResponseEntity<List<Event>> record = eventRepository.findEventsByDateFromOrDateTo(dateFrom, dateTo);
-        return record == null;
+    public Event checkDateAvailable(LocalDate dateFrom, LocalDate dateTo) {
+        return eventRepository.findEventsByDateFromOrDateTo(dateFrom, dateTo);
+    }
+
+    @Override
+    public Event checkSingleDateAvailable(LocalDate dateFrom) {
+        return eventRepository.findEventsByDate(dateFrom);
     }
 }

@@ -26,7 +26,8 @@ public class AdminController {
 
     // delete api for deleting members from database
     @DeleteMapping("/delete-member/{id}")
-    public ResponseEntity<String> deleteMember(@PathVariable Long id) {
+    public ResponseEntity<String> deleteMember(@PathVariable Long id)
+    {
         if (adminService.deleteMember(id))
             return Utils.getResponseEntity("User deleted successfully!", HttpStatus.OK);
         else

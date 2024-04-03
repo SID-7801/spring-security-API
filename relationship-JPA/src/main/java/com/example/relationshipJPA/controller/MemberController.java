@@ -20,6 +20,7 @@ public class MemberController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    // update user profile for all users
     @PatchMapping("/updateProfile")
     public ResponseEntity<String> updateProfile(@RequestBody Signup request)
     {
@@ -35,6 +36,7 @@ public class MemberController {
         }
     }
 
+    // current logged in user details
     @GetMapping("/getUser")
     public Member getUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

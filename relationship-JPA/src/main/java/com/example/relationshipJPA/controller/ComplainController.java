@@ -23,41 +23,47 @@ public class ComplainController {
 
     @Autowired
     private ComplainService complainService;
-    @PostMapping("/register-complaint")
-    public ResponseEntity<String> raiseComplain(@RequestBody Complain request)
-    {
+
+    // register complaint for member, secretory, admin, guard, committee
+    @PostMapping("/newComplaint")
+    public ResponseEntity<String> raiseComplain(@RequestBody Complain request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        complainService.RaiseComplain(request ,username);
+        complainService.raiseComplain(request, username);
         return ResponseEntity.ok("complaint raised successfully");
     }
 
-    // secretory view all complaint api
-    @GetMapping("/view-complaints")
-    public ResponseEntity<List<Complain>> getAllComplains(){
+    // secretory, admin, committee view all complaint api
+    @GetMapping("/view-all")
+    public ResponseEntity<List<Complain>> getAllComplains() {
         List<Complain> complains = complainService.getAllComplains();
-        return new ResponseEntity<>(complains , HttpStatus.OK);
+        return new ResponseEntity<>(complains, HttpStatus.OK);
     }
 
-    @GetMapping("/view-my-complaints/{id}")
-    public ResponseEntity<List<Complain>> getComplains(@PathVariable Long id) {
-        List<Complain> complain = complainService.getComplainByUserId(id);
-        return new ResponseEntity<>(complain , HttpStatus.OK);
+    // my complaint for all the users
+    @GetMapping("/my-complaints")
+    public ResponseEntity<List<Complain>> getComplains() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        List<Complain> complaints = complainService.getComplainByUsername(username);
+        return new ResponseEntity<>(complaints, HttpStatus.OK);
     }
 
-    @PatchMapping("/solve")
-    public ResponseEntity<Complain> completeComplain(@RequestParam("id") Long id){
+    // solve complaint api for secretory, admin
+    @PatchMapping("/solve/{id}")
+    public ResponseEntity<Complain> completeComplain(@PathVariable("id") Long id) {
         Complain complain = complainService.completecomplain(id);
         return new ResponseEntity<>(complain, HttpStatus.OK);
     }
 
+    // delete api for secretory, admin
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteComplaint(@PathVariable("id") Long compId)
-    {
-        if(complainService.deleteComplaint(compId))
-        {
+    public ResponseEntity<String> deleteComplaint(@PathVariable("id") Long compId) {
+        if (complainService.deleteComplaint(compId)) {
             return Utils.getResponseEntity("Complaint deleted successfully", HttpStatus.OK);
         }
         return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }

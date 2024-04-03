@@ -28,7 +28,7 @@ public class ComplainServiceImpl implements ComplainService {
 
 
     @Override
-    public String RaiseComplain(Complain request , String userName) {
+    public String raiseComplain(Complain request , String userName) {
         Member member = memberRepository.findByEmail(userName).get();
 
         Complain complain = new Complain();
@@ -44,15 +44,15 @@ public class ComplainServiceImpl implements ComplainService {
 
     @Override
     public List<Complain> getAllComplains() {
-        List<Complain> complains = complainRepository.findAll();
-        return complains;
+        return complainRepository.findAll();
     }
 
 
     @Override
-    public List<Complain> getComplainByUserId(Long id) {
-       List<Complain> complain = complainRepository.findByfk_Mem_Id(id);
-        return complain;
+    public List<Complain> getComplainByUsername(String username) {
+
+        Member member = memberRepository.findByEmail(username).orElseThrow();
+        return complainRepository.findByfk_Mem_Id(member.getId());
     }
 
 
@@ -60,8 +60,8 @@ public class ComplainServiceImpl implements ComplainService {
         Complain complain = complainRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Complain","id",id));
         complain.setStatus(Status.COMPLETED);
-        Complain complain1 = complainRepository.save(complain);
-        return complain1;
+
+        return complainRepository.save(complain);
     }
 
     @Override

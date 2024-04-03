@@ -21,7 +21,7 @@ public class MeetingController {
     private MeetingService meetingService;
 
     // ADMIN & Secretory api for  create meeting
-    @PostMapping("/raiseMeeting")
+    @PostMapping("/create")
     public ResponseEntity<String> raiseMeeting(@RequestBody MeetingRequest request){
         meetingService.raiseMeeting(request);
         return Utils.getResponseEntity("Meeting successfully scheduled", HttpStatus.OK);
@@ -35,7 +35,7 @@ public class MeetingController {
     }
 
     // ADMIN & Secretory api for delete meeting
-    @DeleteMapping("/deleteMeeting/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteMeeting(@PathVariable("id") Long meetingid)
     {
         meetingService.deleteMeeting(meetingid);
@@ -43,7 +43,7 @@ public class MeetingController {
     }
 
     // ADMIN & Secretory api for view meeting
-    @GetMapping("/view")
+    @GetMapping("/view-all")
     public ResponseEntity<List<MeetingsAndagenda>> viewMeeting(){
         List<MeetingsAndagenda> meetings = meetingService.viewMeeting();
         return ResponseEntity.ok(meetings);

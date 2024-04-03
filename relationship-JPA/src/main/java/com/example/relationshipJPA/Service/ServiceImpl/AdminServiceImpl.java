@@ -35,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
     {
         return memberRepository.findUserByStatus();
     }
+
     @Override
     public Boolean approveUser(Long id)
     {
@@ -53,4 +54,5 @@ public class AdminServiceImpl implements AdminService {
         memberRepository.save(member);
         return true;
     }
+
 }

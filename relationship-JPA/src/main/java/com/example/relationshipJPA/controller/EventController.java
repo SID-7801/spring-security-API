@@ -17,13 +17,14 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/v1/auth")
+@RequestMapping("lwresident/v1/events")
 public class EventController {
 
     @Autowired
     private EventService eventService;
 
-    @PostMapping("/create")
+    // create new event for all the member except guard
+    @PostMapping("/newEvent")
     public ResponseEntity<String> createEvent(@RequestBody Event request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -32,26 +33,30 @@ public class EventController {
         return ResponseEntity.ok("successfully created event");
     }
 
-    @GetMapping("/getevents")
+    // view all events for admin, secretory
+    @GetMapping("/view-all")
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity<Event> updateevent(@RequestBody Event request, @PathVariable("id") Long funcid) {
+    // update details for all the users
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Event> updateEvent(@RequestBody Event request, @PathVariable("id") Long funcid) {
         Event updatedevent = eventService.updateEvent(request, funcid);
         return ResponseEntity.ok(updatedevent);
     }
 
-    @DeleteMapping("/{id}/delete")
-    public ResponseEntity<String> deleteevent(@PathVariable("id") Long funcid) {
+    // delete api for admin and secretory
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteEvent(@PathVariable("id") Long funcid) {
         eventService.deleteEvent(funcid);
         return ResponseEntity.ok("event deleted");
     }
 
-    //doubt
-    @PostMapping("/checkBookings")
+    // check available booking for all the users
+    // not working properly
+    @PostMapping("/check-bookings")
     public ResponseEntity<String> checkDate(@RequestParam LocalDate dateFrom, @RequestParam LocalDate dateTo) {
         if (eventService.checkDateAvailable(dateFrom, dateTo)) {
             return new ResponseEntity<>("Bookings available", HttpStatus.OK);

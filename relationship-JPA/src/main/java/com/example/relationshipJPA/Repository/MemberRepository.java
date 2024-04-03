@@ -30,9 +30,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findUserByStatus();
 
     Member findByEmailAndPassword(String email, String password);
+
     @Query(value = "SELECT id FROM Member", nativeQuery = true)
     List<Long> getAllId();
 
-//    @Query(value = "")
-//    Boolean approveUser(Long id);
 }

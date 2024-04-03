@@ -18,55 +18,43 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/view-members")
-    public List<Member> viewMembers()
-    {
+    // view all members of society
+    @GetMapping("/members")
+    public List<Member> viewMembers() {
         return adminService.getMembers();
     }
 
+    // delete api for deleting members from database
     @DeleteMapping("/delete-member/{id}")
-    public ResponseEntity<String> deleteMember(@PathVariable Long id)
-    {
-        if(adminService.deleteMember(id))
-        {
+    public ResponseEntity<String> deleteMember(@PathVariable Long id) {
+        if (adminService.deleteMember(id))
             return Utils.getResponseEntity("User deleted successfully!", HttpStatus.OK);
-        }
         else
-        {
             return Utils.getResponseEntity("Internal server error!", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     // view approvals api for admin
-    @GetMapping("/view-requests")
-    public List<Member> viewNotApprovedUsers()
-    {
+    @GetMapping("/requests")
+    public List<Member> viewNotApprovedUsers() {
         return adminService.viewNotApprovedUsers();
     }
 
-    // approve users
-    @PatchMapping("/view-requests/approve/{id}")
-    public ResponseEntity<String> approveUser(@PathVariable Long id)
-    {
-        if(adminService.approveUser(id))
-        {
+    // approve users api
+    @PatchMapping("/requests/approve/{id}")
+    public ResponseEntity<String> approveUser(@PathVariable Long id) {
+        if (adminService.approveUser(id))
             return Utils.getResponseEntity("User approved successfully!", HttpStatus.OK);
-        }
         else
-        {
             return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
-    @PatchMapping("/view-requests/decline/{id}")
-    public ResponseEntity<String> declineUser(@PathVariable Long id)
-    {
-        if(adminService.declineUser(id))
-        {
+    // decline user api for declining request of user for specific role
+    @PatchMapping("/requests/decline/{id}")
+    public ResponseEntity<String> declineUser(@PathVariable Long id) {
+        if (adminService.declineUser(id))
             return Utils.getResponseEntity("User request declined!", HttpStatus.OK);
-        }
-        else{
+        else
             return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
+
 }

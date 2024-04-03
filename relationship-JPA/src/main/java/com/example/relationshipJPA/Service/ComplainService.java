@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface ComplainService {
 
-    String RaiseComplain(Complain request , String userName);
+    String raiseComplain(Complain request , String userName);
 
     List<Complain> getAllComplains();
 
-    List<Complain> getComplainByUserId(Long mem_id);
+    List<Complain> getComplainByUsername(String username);
 
     Complain completecomplain(Long id);
     Boolean deleteComplaint(Long compId);

@@ -15,6 +15,7 @@ public class GuestUserServiceImpl implements GuestUserService {
 
     @Autowired
     private GuestUserRepository guestUserRepository;
+
     @Override
     public Boolean checkInGuest(GuestUser request) {
         GuestUser guestUser = new GuestUser();
@@ -34,19 +35,18 @@ public class GuestUserServiceImpl implements GuestUserService {
         GuestUser guestUser = guestUserRepository.findById(id).orElseThrow();
         guestUser.setCheckOut(LocalDateTime.now());
         guestUser.setStatus(Status.CHECKED_OUT);
+
         guestUserRepository.save(guestUser);
         return true;
     }
 
     @Override
     public List<GuestUser> giveCheckInUsers() {
-        List<GuestUser> guestUser = guestUserRepository.findByStatus();
-        return guestUser;
+        return guestUserRepository.findByStatus();
     }
 
     @Override
-    public List<GuestUser> viewGuestUsers(){
-        List<GuestUser>  guestUsers = guestUserRepository.findAll();
-        return guestUsers;
+    public List<GuestUser> viewGuestUsers() {
+        return guestUserRepository.findAll();
     }
 }

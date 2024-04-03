@@ -15,20 +15,22 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("lwresident/v1/auth")
+@RequestMapping("lwresident/v1/feedback")
 public class FeedbackController {
 
     @Autowired
     private FeedbackService feedbackService;
 
-    @PostMapping("/feedback")
-    public ResponseEntity<String> saveFeedback(@RequestBody Feedback feedback){
+    // submit api for all the users
+    @PostMapping("/new")
+    public ResponseEntity<String> saveFeedback(@RequestBody Feedback feedback) {
         feedbackService.saveFeedback(feedback);
         return Utils.getResponseEntity("Feedback submitted", HttpStatus.OK);
     }
 
-    @GetMapping("/view-feedbacks")
-    public List<Feedback> getAllFeedback(){
+    // view api for admin, secretory
+    @GetMapping("/view")
+    public List<Feedback> getAllFeedback() {
         return feedbackService.getAllFeedback();
     }
 }

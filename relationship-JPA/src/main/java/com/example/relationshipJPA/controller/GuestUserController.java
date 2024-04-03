@@ -19,18 +19,17 @@ public class GuestUserController {
     @Autowired
     private GuestUserService guestUserService;
 
+    // check in guest user for guard
     @PostMapping("/raiseEntry")
     public ResponseEntity<String> raiseEntry(@RequestBody GuestUser request) {
-        if (guestUserService.checkInGuest(request))
-        {
+        if (guestUserService.checkInGuest(request)) {
             return Utils.getResponseEntity("Guest user inserted successfully", HttpStatus.OK);
-        }
-        else
-        {
+        } else {
             return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    // check out guest user api for guard
     @PatchMapping("/checkout/{id}")
     public ResponseEntity<String> checkOut(@PathVariable Long id) {
         if (guestUserService.checkOutGuest(id)) {
@@ -39,15 +38,18 @@ public class GuestUserController {
         return new ResponseEntity<>("not found", HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/viewUser")
-    public ResponseEntity<List<GuestUser>> viewcheckInUser() {
+    // view all checkIn guest users for guard
+    @GetMapping("/view-checkIn-user")
+    public ResponseEntity<List<GuestUser>> viewCheckInUser() {
         List<GuestUser> view = guestUserService.giveCheckInUsers();
         return ResponseEntity.ok(view);
     }
 
+    // view all guest users for guard and admin and secretory
     @GetMapping("/viewVisitors")
     public ResponseEntity<List<GuestUser>> viewVisitors() {
         List<GuestUser> guestUserList = guestUserService.viewGuestUsers();
         return ResponseEntity.ok(guestUserList);
     }
+
 }

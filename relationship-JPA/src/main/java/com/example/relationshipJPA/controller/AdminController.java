@@ -45,12 +45,25 @@ public class AdminController {
     }
 
     // approve users
-    @PatchMapping("/approve/{id}")
+    @PatchMapping("/view-requests/approve/{id}")
     public ResponseEntity<String> approveUser(@PathVariable Long id)
     {
         if(adminService.approveUser(id))
         {
-            return Utils.getResponseEntity("User approved successfully", HttpStatus.OK);
+            return Utils.getResponseEntity("User approved successfully!", HttpStatus.OK);
+        }
+        else
+        {
+            return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/view-requests/decline/{id}")
+    public ResponseEntity<String> declineUser(@PathVariable Long id)
+    {
+        if(adminService.declineUser(id))
+        {
+            return Utils.getResponseEntity("User request declined!", HttpStatus.OK);
         }
         else{
             return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);

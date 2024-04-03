@@ -2,6 +2,7 @@ package com.example.relationshipJPA.Service.ServiceImpl;
 
 import com.example.relationshipJPA.Dao.Resquest.MemberDto;
 import com.example.relationshipJPA.Entity.Member;
+import com.example.relationshipJPA.Entity.Role;
 import com.example.relationshipJPA.Entity.Status;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.AdminService;
@@ -39,6 +40,16 @@ public class AdminServiceImpl implements AdminService {
     {
         Member member = memberRepository.findById(id).orElseThrow();
         member.setStatus(Status.APPROVED);
+        memberRepository.save(member);
+        return true;
+    }
+
+    @Override
+    public Boolean declineUser(Long id)
+    {
+        Member member = memberRepository.findById(id).orElseThrow();
+        member.setStatus(Status.APPROVED);
+        member.setRole(Role.MEMBER);
         memberRepository.save(member);
         return true;
     }

@@ -21,13 +21,13 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long funcid;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String funcType;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalDate dateFrom;
 
     @Column(nullable = false)

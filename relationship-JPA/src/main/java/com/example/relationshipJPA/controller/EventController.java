@@ -2,6 +2,7 @@ package com.example.relationshipJPA.controller;
 
 import com.example.relationshipJPA.Entity.Event;
 import com.example.relationshipJPA.Service.EventService;
+import com.example.relationshipJPA.util.Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,15 +30,14 @@ public class EventController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        eventService.RaiseEvent(request, username);
+        eventService.raiseEvent(request, username);
         return ResponseEntity.ok("successfully created event");
     }
 
     // view all events for admin, secretory
     @GetMapping("/view-all")
-    public ResponseEntity<List<Event>> getAllEvents() {
-        List<Event> events = eventService.getAllEvents();
-        return new ResponseEntity<>(events, HttpStatus.OK);
+    public List<Event> getAllEvents() {
+        return eventService.getAllEvents();
     }
 
     // update details for all the users
@@ -57,11 +57,17 @@ public class EventController {
     // check available booking for all the users
     // not working properly
     @PostMapping("/check-bookings")
-    public Event checkDate(@RequestParam LocalDate dateFrom, @RequestParam LocalDate dateTo) {
-        if (dateFrom.equals(dateTo))
-            return eventService.checkSingleDateAvailable(dateFrom);
-        else {
-            return eventService.checkDateAvailable(dateFrom, dateTo);
+    public ResponseEntity<String> checkDate(@RequestParam LocalDate dateFrom, @RequestParam LocalDate dateTo) {
+        if (dateFrom.equals(dateTo)) {
+            Event data = eventService.checkSingleDateAvailable(dateFrom);
+            if (data == null)
+                return Utils.getResponseEntity("Bookings available for this date", HttpStatus.OK);
+            return Utils.getResponseEntity("Bookings is full", HttpStatus.BAD_REQUEST);
+        } else {
+            Event data = eventService.checkDateAvailable(dateFrom, dateTo);
+            if(data == null)
+                return Utils.getResponseEntity("Booking available for this date", HttpStatus.OK);
+            return Utils.getResponseEntity("Booking is full ", HttpStatus.BAD_REQUEST);
         }
     }
 }

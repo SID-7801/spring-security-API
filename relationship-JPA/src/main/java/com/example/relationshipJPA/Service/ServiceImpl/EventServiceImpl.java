@@ -24,8 +24,7 @@ public class EventServiceImpl implements EventService {
     private MemberRepository memberRepository;
 
     @Override
-    public String RaiseEvent(Event request, String userName) {
-
+    public String raiseEvent(Event request, String userName) {
         Member member = memberRepository.findByEmail(userName).get();
 
         Event event = new Event();
@@ -36,7 +35,6 @@ public class EventServiceImpl implements EventService {
         event.setMem_id(member);
 
         eventRepository.save(event);
-//        getAllDates();
         return "successfully created";
     }
 
@@ -63,7 +61,6 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(id);
     }
 
-    // doubt
     @Override
     public Event checkDateAvailable(LocalDate dateFrom, LocalDate dateTo) {
         return eventRepository.findEventsByDateFromOrDateTo(dateFrom, dateTo);

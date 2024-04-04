@@ -56,7 +56,8 @@ public class SecurityConfiguration {
                         "/lwresident/v1/auth/**",
                         "/lwresident/v1/guest/**",
                                 "/lwresident/v1/admin/**",
-                                "/lwresident/v1/contactus/**"
+                                "/lwresident/v1/contactus/**",
+                                "/lwresident/v1/events/**"
                                 )
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

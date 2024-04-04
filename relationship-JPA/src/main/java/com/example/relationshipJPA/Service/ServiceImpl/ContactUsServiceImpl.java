@@ -16,6 +16,7 @@ public class ContactUsServiceImpl implements ContactUsService {
     public Boolean submitContact(ContactUs request)
     {
         contactUsRepository.save(request);
+        System.out.println(request);
         return true;
     }
 }

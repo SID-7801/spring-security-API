@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface EventService {
 
-    String RaiseEvent(Event request , String userName);
+    String raiseEvent(Event request , String userName);
 
     List<Event> getAllEvents();
 
@@ -18,8 +18,7 @@ public interface EventService {
 
     void deleteEvent(long id);
 
-//    ResponseEntity<List<Event>> getAllDates(Event request, Date fromDate, Date toDate);
-
     Event checkDateAvailable(LocalDate dateFrom, LocalDate dateTo);
+
     Event checkSingleDateAvailable(LocalDate dateFrom);
 }

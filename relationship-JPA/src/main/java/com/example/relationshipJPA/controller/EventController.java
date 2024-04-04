@@ -2,6 +2,7 @@ package com.example.relationshipJPA.controller;
 
 import com.example.relationshipJPA.Entity.Event;
 import com.example.relationshipJPA.Service.EventService;
+import com.example.relationshipJPA.Service.MemberService;
 import com.example.relationshipJPA.util.Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,17 @@ public class EventController {
     @GetMapping("/view-all")
     public List<Event> getAllEvents() {
         return eventService.getAllEvents();
+    }
+
+    // view my events
+    @GetMapping("/my-events")
+    public List<Event> getMyEvents() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        Long id = eventService.getMyUserId(username);
+
+        return eventService.getMyEvents(id);
     }
 
     // update details for all the users

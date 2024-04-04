@@ -32,7 +32,7 @@ public class EventServiceImpl implements EventService {
         event.setFuncType(request.getFuncType());
         event.setDateFrom(request.getDateFrom());
         event.setDateTo(request.getDateTo());
-        event.setMem_id(member);
+        event.setMember(member);
 
         eventRepository.save(event);
         return "successfully created";
@@ -69,5 +69,17 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event checkSingleDateAvailable(LocalDate dateFrom) {
         return eventRepository.findEventsByDate(dateFrom);
+    }
+
+    @Override
+    public List<Event> getMyEvents(Long id)
+    {
+        return eventRepository.findMyEvents(id);
+    }
+
+    @Override
+    public Long getMyUserId(String email)
+    {
+        return memberRepository.findIdByEmail(email);
     }
 }

@@ -48,8 +48,8 @@ public class Member implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToOne(mappedBy = "mem_id", orphanRemoval = true)
-    private Event event;
+//    @OneToOne(mappedBy = "member",cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Event event;
 
     @OneToOne(mappedBy = "member")
     private ForgetPassword forgetPassword;

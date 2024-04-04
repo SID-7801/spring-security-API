@@ -14,6 +14,8 @@ public interface EventService {
 
     List<Event> getAllEvents();
 
+    List<Event> getMyEvents(Long id);
+
     Event updateEvent(Event request , long id);
 
     void deleteEvent(long id);
@@ -21,4 +23,7 @@ public interface EventService {
     Event checkDateAvailable(LocalDate dateFrom, LocalDate dateTo);
 
     Event checkSingleDateAvailable(LocalDate dateFrom);
+
+    Long getMyUserId(String email);
+
 }

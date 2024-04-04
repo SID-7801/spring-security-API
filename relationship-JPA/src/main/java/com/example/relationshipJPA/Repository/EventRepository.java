@@ -13,4 +13,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Event findEventsByDateFromOrDateTo(LocalDate fromDate , LocalDate toDate);
     @Query(value = "SELECT * FROM Event WHERE date_from = :fromDate OR date_to = :fromDate OR :fromDate BETWEEN date_from AND date_to", nativeQuery = true)
     Event findEventsByDate(LocalDate fromDate);
+
+    @Query(value = "SELECT * FROM Event WHERE fk_mem_id LIKE :id", nativeQuery = true)
+    List<Event> findMyEvents(Long id);
 }

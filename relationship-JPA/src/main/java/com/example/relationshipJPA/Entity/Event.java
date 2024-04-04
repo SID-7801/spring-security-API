@@ -21,20 +21,19 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long funcid;
 
-//    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String funcType;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private LocalDate dateFrom;
 
     @Column(nullable = false)
     private LocalDate dateTo;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "fk_mem_id")
-    private Member mem_id;
+    @JsonIgnore
+    private Member member;
 }

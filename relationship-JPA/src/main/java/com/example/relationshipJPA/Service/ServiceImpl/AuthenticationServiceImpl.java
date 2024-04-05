@@ -18,6 +18,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -44,6 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                         .mobile(request.getMobile())
                         .role(userRole)
                         .status(Status.APPROVED)
+                        .acCreateDate(LocalDate.now())
                         .build();
                 memberRepository.save(member);
             } else {
@@ -55,6 +58,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                         .mobile(request.getMobile())
                         .role(request.getRole())
                         .status(Status.NOT_APPROVED)
+                        .acCreateDate(LocalDate.now())
                         .build();
                 memberRepository.save(member);
             }
@@ -77,10 +81,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public Boolean checkUser(String email) {
         var checkMember = memberRepository.findByEmail(email);
-        if (checkMember.isEmpty())
-            return true;
-        else
-            return false;
+        return checkMember.isEmpty();
     }
 
     // get current logged in user details

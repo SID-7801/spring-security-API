@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -32,8 +33,11 @@ public class Event {
     @Column(nullable = false)
     private LocalDate dateTo;
 
+    @Column(nullable = false)
+    private LocalDateTime bookingDate;
+
     @ManyToOne
     @JoinColumn(name = "fk_mem_id")
-    @JsonIgnore
+//    @JsonIgnore
     private Member member;
 }

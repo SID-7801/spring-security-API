@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,27 +31,26 @@ public class Member implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-
     private String password;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
     private String wing;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
     private String flat;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
+    private LocalDate acCreateDate;
+
+    @Column(nullable = false)
     private long mobile;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
-//    @OneToOne(mappedBy = "member",cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Event event;
 
     @OneToOne(mappedBy = "member")
     private ForgetPassword forgetPassword;

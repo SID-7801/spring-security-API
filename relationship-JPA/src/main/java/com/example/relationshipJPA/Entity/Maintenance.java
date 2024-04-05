@@ -11,9 +11,7 @@ import java.time.Month;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
-@Setter
-@ToString
+@Data
 public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +27,7 @@ public class Maintenance {
     @Column(nullable = false, name = "due_date")
     private LocalDate dueDate;
 
-    @Column(nullable = false, name = "paid_date")
+    @Column(name = "paid_date")
     private LocalDate paidDate;
 
     @Column(nullable = false)
@@ -45,4 +43,5 @@ public class Maintenance {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_mem_id")
     private Member member;
+
 }

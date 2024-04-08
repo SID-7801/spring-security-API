@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("lwresident/v1/maintenance")
 public class MaintenanceController {
 

@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("lwresident/v1/complaint")
 public class ComplainController {
 

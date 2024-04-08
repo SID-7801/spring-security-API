@@ -2,6 +2,7 @@ package com.example.relationshipJPA.controller;
 
 
 import com.example.relationshipJPA.Dao.Resquest.Signup;
+import com.example.relationshipJPA.Dao.Resquest.UpdateProfileDto;
 import com.example.relationshipJPA.Entity.Member;
 import com.example.relationshipJPA.Service.AuthenticationService;
 import com.example.relationshipJPA.util.Utils;
@@ -13,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/lwresident/v1/member")
 public class MemberController {
 
@@ -22,7 +22,7 @@ public class MemberController {
 
     // update user profile for all users
     @PatchMapping("/updateProfile")
-    public ResponseEntity<String> updateProfile(@RequestBody Signup request)
+    public ResponseEntity<String> updateProfile(@RequestBody UpdateProfileDto request)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

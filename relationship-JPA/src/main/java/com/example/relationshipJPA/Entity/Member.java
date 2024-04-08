@@ -55,10 +55,6 @@ public class Member implements UserDetails {
     @OneToOne(mappedBy = "member")
     private ForgetPassword forgetPassword;
 
-    @OneToOne(mappedBy = "member")
-    @JsonIgnore
-    private RefreshToken refreshToken;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

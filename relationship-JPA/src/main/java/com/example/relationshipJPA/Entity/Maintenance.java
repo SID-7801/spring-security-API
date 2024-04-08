@@ -13,35 +13,33 @@ import java.time.Month;
 @Builder
 @Data
 public class Maintenance {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mid;
 
-    @Column(nullable = false)
-    private double amount;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long mid;
 
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private Month month;
+	@Column(nullable = false)
+	private double amount;
 
-    @Column(nullable = false, name = "due_date")
-    private LocalDate dueDate;
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
+	private Month month;
 
-    @Column(name = "paid_date")
-    private LocalDate paidDate;
+	@Column(nullable = false, name = "due_date")
+	private LocalDate dueDate;
 
-    @Column(nullable = false)
-    private double penalties;
+	@Column(nullable = false)
+	private double penalties;
 
-    @Column(nullable = false, name = "due_amount")
-    private double dueAmount;
+	@Column(nullable = false, name = "due_amount")
+	private double dueAmount;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
-    private Status status;
+	@Enumerated(value = EnumType.STRING)
+	@Column(nullable = false)
+	private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_mem_id")
-    private Member member;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_mem_id")
+	private Member member;
 
 }

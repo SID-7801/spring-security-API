@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("lwresident/v1/guest")
-@CrossOrigin(origins = "http://localhost:3000")
 public class GuestUserController {
 
     @Autowired

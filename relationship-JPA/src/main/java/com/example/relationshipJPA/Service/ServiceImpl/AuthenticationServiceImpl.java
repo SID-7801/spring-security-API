@@ -4,13 +4,13 @@ package com.example.relationshipJPA.Service.ServiceImpl;
 import com.example.relationshipJPA.Dao.JwtAuthenticationResponse;
 import com.example.relationshipJPA.Dao.Resquest.Signin;
 import com.example.relationshipJPA.Dao.Resquest.Signup;
+import com.example.relationshipJPA.Dao.Resquest.UpdateProfileDto;
 import com.example.relationshipJPA.Entity.Member;
 import com.example.relationshipJPA.Entity.Role;
 import com.example.relationshipJPA.Entity.Status;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.AuthenticationService;
 import com.example.relationshipJPA.Service.JwtService;
-import com.example.relationshipJPA.Service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -91,15 +91,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public boolean updateProfile(Signup request, String username) {
+    public boolean updateProfile(UpdateProfileDto request, String username) {
         Member user = memberRepository.findByEmail(username).orElseThrow();
         user.setEmail(user.getEmail());
         user.setName(request.getName());
         user.setWing(request.getWing());
         user.setFlat(request.getFlat());
         user.setMobile(request.getMobile());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(user.getRole());
 
         memberRepository.save(user);
         return true;

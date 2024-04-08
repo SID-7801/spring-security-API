@@ -18,7 +18,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("lwresident/v1/events")
 public class EventController {
 
@@ -54,8 +53,8 @@ public class EventController {
 
     // update details for all the users
     @PatchMapping("/update/{id}")
-    public ResponseEntity<Event> updateEvent(@RequestBody Event request, @PathVariable("id") Long funcid) {
-        Event updatedevent = eventService.updateEvent(request, funcid);
+    public ResponseEntity<Event> updateEvent(@RequestBody Event request, @PathVariable("id") Long funcId) {
+        Event updatedevent = eventService.updateEvent(request, funcId);
         return ResponseEntity.ok(updatedevent);
     }
 

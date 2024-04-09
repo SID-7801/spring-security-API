@@ -1,12 +1,12 @@
 package com.example.relationshipJPA.controller;
 
-
 import com.example.relationshipJPA.Dao.JwtAuthenticationResponse;
 import com.example.relationshipJPA.Dao.Resquest.Signin;
 import com.example.relationshipJPA.Dao.Resquest.Signup;
 import com.example.relationshipJPA.Service.AuthenticationService;
 import com.example.relationshipJPA.Service.JwtService;
 import com.example.relationshipJPA.util.Utils;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,10 +24,11 @@ public class AuthenticationController {
     
     @Autowired
     private JwtService jwtService;
+
     private UserDetails userDetails;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody Signup request) {
+    public ResponseEntity<String> signup(@RequestBody @Valid Signup request) {
         if (authenticationService.signup(request))
             return Utils.getResponseEntity("Account created successfully", HttpStatus.OK);
         else
@@ -35,8 +36,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody Signin request) {
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody @Valid Signin request)
+    {
         return ResponseEntity.ok(authenticationService.signin(request));
     }
+
 }
 

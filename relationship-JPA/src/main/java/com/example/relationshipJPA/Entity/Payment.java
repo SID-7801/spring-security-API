@@ -6,11 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Data
+//@Entity
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Builder
+//@Data
 public class Payment {
-    private Long paymentId;
+//    private Long paymentId;
 }

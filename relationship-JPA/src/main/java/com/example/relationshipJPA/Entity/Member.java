@@ -2,6 +2,8 @@ package com.example.relationshipJPA.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,8 +16,8 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-@Builder
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Entity
 public class Member implements UserDetails {
@@ -43,7 +45,8 @@ public class Member implements UserDetails {
     private LocalDate acCreateDate;
 
     @Column(nullable = false)
-    private long mobile;
+    @Size(min = 10,max = 10)
+    private String mobile;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

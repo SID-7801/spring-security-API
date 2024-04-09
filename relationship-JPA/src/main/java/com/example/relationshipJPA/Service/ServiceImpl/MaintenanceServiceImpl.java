@@ -31,7 +31,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     // format : seconds minutes hours date month dayOfWeek year
     //    @Scheduled(cron = "0 0 10 1 * ?")
     @Override
-    @Scheduled(fixedRate = 10000)
+//    @Scheduled(fixedRate = 10000)
     public Maintenance generateMaintenance() {
 
         LocalDate generateDate = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1);
@@ -44,18 +44,18 @@ public class MaintenanceServiceImpl implements MaintenanceService {
             Maintenance maintenance = new Maintenance();
             Member member = memberRepository.findById(id).orElseThrow();
 
-            Maintenance newMaintenance = getMaintenanceValue(maintenance, id);
+//            Maintenance newMaintenance = getMaintenanceValue(maintenance, id);
 
-//            maintenance.setMember(member);
-//            maintenance.setAmount(1000.00);
-//            maintenance.setMonth(LocalDate.now().getMonth());
-//            maintenance.setPenalties(0.00);
-//            maintenance.setDueDate(dueDate);
-//            maintenance.setDueAmount(1000);
-//            maintenance.setStatus(Status.UNPAID);
+            maintenance.setMember(member);
+            maintenance.setAmount(1000.00);
+            maintenance.setMonth(LocalDate.now().getMonth());
+            maintenance.setPenalties(0.00);
+            maintenance.setDueDate(dueDate);
+            maintenance.setDueAmount(1000);
+            maintenance.setStatus(Status.UNPAID);
 
-//            maintenanceRepository.save(newMaintenance);
-            System.out.println(newMaintenance);
+            maintenanceRepository.save(maintenance);
+//            System.out.println(newMaintenance);
 
         }
         return null;
@@ -66,6 +66,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         return memberRepository.getAllId();
     }
 
+/*
     public Maintenance getMaintenanceValue(Maintenance generatedMaintenance, Long id) {
 
         Member member = memberRepository.findById(id).orElseThrow();
@@ -99,5 +100,6 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         }
         return newGeneratedMaintenance;
     }
+*/
 
 }

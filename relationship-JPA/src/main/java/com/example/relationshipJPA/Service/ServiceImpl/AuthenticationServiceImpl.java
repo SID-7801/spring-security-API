@@ -1,6 +1,5 @@
 package com.example.relationshipJPA.Service.ServiceImpl;
 
-
 import com.example.relationshipJPA.Dao.JwtAuthenticationResponse;
 import com.example.relationshipJPA.Dao.Resquest.Signin;
 import com.example.relationshipJPA.Dao.Resquest.Signup;
@@ -15,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -70,11 +70,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtAuthenticationResponse signin(Signin request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(),
-                        request.getPassword()));
-        var member = memberRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Couldn't find'"));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        var member = memberRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("Couldn't find'"));
         var jwt = jwtService.generateToken(member);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }

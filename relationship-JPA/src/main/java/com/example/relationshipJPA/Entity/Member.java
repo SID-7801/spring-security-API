@@ -55,9 +55,6 @@ public class Member implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToOne(mappedBy = "member")
-    private ForgetPassword forgetPassword;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

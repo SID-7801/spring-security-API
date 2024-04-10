@@ -7,6 +7,8 @@ import com.example.relationshipJPA.Entity.Member;
 import com.example.relationshipJPA.Repository.ForgetPasswordRepository;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.sendmail;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +36,15 @@ public class ForgetPasswordController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/verifyMail/{email}")
-    public ResponseEntity<String> verifyMail(@PathVariable String email){
+    @Autowired
+    private HttpSession session;
+
+    @PostMapping("/verifyMail")
+    public ResponseEntity<String> verifyMail(@RequestParam String email){
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("please provide an valid email"));
+
+        session.setAttribute("EMAIL", email);
 
         int otp = otpGenerator();
         Mail mail = Mail.builder()
@@ -57,8 +64,13 @@ public class ForgetPasswordController {
         return ResponseEntity.ok("email sent");
     }
 
-    @PostMapping("/verifyOtp/{otp}/{email}")
-    public ResponseEntity<String> verifyOtp(@PathVariable Integer otp, @PathVariable String email){
+    @PostMapping("/verifyOtp")
+    public ResponseEntity<String> verifyOtp(@RequestParam Integer otp){
+
+        var email = (String) session.getAttribute("EMAIL");
+
+        System.out.println(email);
+
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("please provide an valid email"));
         ForgetPassword fp = forgetPasswordRepository.findByOtpAndMember(otp,member).orElseThrow(() -> new RuntimeException("Invalid otp for email" + email));
@@ -69,8 +81,11 @@ public class ForgetPasswordController {
         return ResponseEntity.ok("OTp verified");
     }
 
-    @PostMapping("/changePassword/{email}")
-    public ResponseEntity<String> changePassword(@RequestBody ChangePassword changePassword, @PathVariable String email){
+    @PostMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePassword changePassword){
+
+        var email = (String) session.getAttribute("EMAIL");
+
         if(!Objects.equals(changePassword.password(), changePassword.repeatPassword())){
             return new ResponseEntity<>("please enter the password again", HttpStatus.EXPECTATION_FAILED);
         }

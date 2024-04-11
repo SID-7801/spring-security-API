@@ -53,14 +53,14 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers(
-                        "/lwresident/v1/auth/**",
-                        "/lwresident/v1/guest/**",
+                                "/lwresident/v1/auth/**",
+                                "/lwresident/v1/guest/**",
                                 "/lwresident/v1/admin/**",
                                 "/lwresident/v1/contactus/**",
                                 "/lwresident/v1/events/**",
                                 "/lwresident/v1/maintenance/**",
                                 "/lwresident/v1/forgetpassword/**"
-                                )
+                        )
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

@@ -8,7 +8,6 @@ import com.example.relationshipJPA.Repository.ForgetPasswordRepository;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.sendmail;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ import java.util.Objects;
 import java.util.Random;
 
 @RestController
-@RequestMapping("lwresident/v1/forgetpassword")
+@RequestMapping("lwresident/v1/forgetPassword")
 public class ForgetPasswordController {
 
     @Autowired
@@ -58,6 +57,7 @@ public class ForgetPasswordController {
                 .member(member)
                 .build();
 
+//        System.out.println(session.getAttribute("EMAIL"));
         sendmail.sendSimpleMessage(mail);
         forgetPasswordRepository.save(fp);
 
@@ -67,9 +67,10 @@ public class ForgetPasswordController {
     @PostMapping("/verifyOtp")
     public ResponseEntity<String> verifyOtp(@RequestParam Integer otp){
 
-        var email = (String) session.getAttribute("EMAIL");
+        String email = (String) session.getAttribute("EMAIL");
 
-        System.out.println(email);
+//        System.out.println(session.getAttribute("EMAIL"));
+//        System.out.println(email);
 
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("please provide an valid email"));

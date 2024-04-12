@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EnableScheduling
+//@EnableScheduling
 @SpringBootApplication
 public class RelationshipJpaApplication {
 
@@ -24,7 +24,10 @@ public class RelationshipJpaApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:3000").
+						allowedHeaders("*")
+						.allowCredentials(true);
 			}
 		};
 	}

@@ -60,6 +60,7 @@ public class SecurityConfiguration {
                                 "/lwresident/v1/contactus/**",
                                 "/lwresident/v1/events/**",
                                 "/lwresident/v1/maintenance/**",
+                                "/lwresident/v1/member/**",
                                 "/lwresident/v1/forgetPassword/**"
                         )
                         .permitAll().anyRequest().authenticated())

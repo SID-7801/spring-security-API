@@ -28,7 +28,7 @@ public class MeetingController {
 
     // ADMIN & Secretory api for  update conclusion of meeting
     @PatchMapping("/updateConclusion/{id}")
-    public ResponseEntity<String> updateConclusion(@PathVariable("id") Long meetingid, @RequestBody MeetingRequest request){
+    public ResponseEntity<String> updateConclusion(@PathVariable("id") Long meetingid, @RequestParam("conclusion") String request){
         meetingService.updateConclusion(meetingid,request);
         return ResponseEntity.ok("Successfully updated");
     }

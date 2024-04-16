@@ -9,7 +9,7 @@ public interface MeetingService {
 
     MeetingsAndagenda raiseMeeting(MeetingRequest request);
 
-    MeetingsAndagenda updateConclusion(Long id, MeetingRequest request);
+    MeetingsAndagenda updateConclusion(Long id, String request);
 
     void deleteMeeting(Long id);
 

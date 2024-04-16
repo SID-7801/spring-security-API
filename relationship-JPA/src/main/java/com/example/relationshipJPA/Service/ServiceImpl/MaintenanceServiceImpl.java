@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @Component
@@ -29,7 +26,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
     // schedule for 1st date of every month at 10 o clock
     // format : seconds minutes hours date month dayOfWeek year
-    //    @Scheduled(cron = "0 0 10 1 * ?")
+//    @Scheduled(cron = "0 0 10 1 * ?")
     @Override
 //    @Scheduled(fixedRate = 10000)
     public Maintenance generateMaintenance() {
@@ -55,7 +52,6 @@ public class MaintenanceServiceImpl implements MaintenanceService {
             maintenance.setStatus(Status.UNPAID);
 
             maintenanceRepository.save(maintenance);
-//            System.out.println(newMaintenance);
 
         }
         return null;

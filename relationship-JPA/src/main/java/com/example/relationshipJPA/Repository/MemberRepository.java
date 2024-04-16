@@ -29,7 +29,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "SELECT * FROM Member WHERE status LIKE 'NOT_APPROVED'", nativeQuery = true)
     List<Member> findUserByStatus();
 
-    @Query(value = "SELECT id FROM Member", nativeQuery = true)
+    @Query(value = "SELECT id FROM Member WHERE NOT role = 'GUARD'", nativeQuery = true)
     List<Long> getAllId();
 
     @Query(value = "SELECT id FROM Member WHERE email = :email", nativeQuery = true)

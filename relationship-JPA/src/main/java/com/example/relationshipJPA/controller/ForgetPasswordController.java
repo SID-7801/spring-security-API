@@ -8,6 +8,7 @@ import com.example.relationshipJPA.Repository.ForgetPasswordRepository;
 import com.example.relationshipJPA.Repository.MemberRepository;
 import com.example.relationshipJPA.Service.sendmail;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 @RestController
+@Slf4j
 @RequestMapping("lwresident/v1/forgetPassword")
 public class ForgetPasswordController {
 
@@ -35,11 +38,8 @@ public class ForgetPasswordController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private HttpSession session;
-
     @PostMapping("/verifyMail")
-    public ResponseEntity<String> verifyMail(@RequestParam String email){
+    public ResponseEntity<String> verifyMail(@RequestParam String email, HttpSession session){
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("please provide an valid email"));
 
@@ -57,39 +57,41 @@ public class ForgetPasswordController {
                 .member(member)
                 .build();
 
-//        System.out.println(session.getAttribute("EMAIL"));
-        sendmail.sendSimpleMessage(mail);
+        System.out.println("OTP =====> " + otp);
+//        System.out.println("EMAIL ======> " + email);
         forgetPasswordRepository.save(fp);
 
-        return ResponseEntity.ok("email sent");
+        return ResponseEntity.ok("email sent : " + otp);
     }
 
     @PostMapping("/verifyOtp")
     public ResponseEntity<String> verifyOtp(@RequestParam Integer otp){
 
-        String email = (String) session.getAttribute("EMAIL");
+        Optional<ForgetPassword> record = forgetPasswordRepository.findByOtp(otp);
+        if (record.isEmpty()) {
+            return new ResponseEntity<>("Invalid OTP", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
 
-//        System.out.println(session.getAttribute("EMAIL"));
-//        System.out.println(email);
+        ForgetPassword fp = record.get();
 
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("please provide an valid email"));
-        ForgetPassword fp = forgetPasswordRepository.findByOtpAndMember(otp,member).orElseThrow(() -> new RuntimeException("Invalid otp for email" + email));
         if(fp.getExpirationTime().before(Date.from(Instant.now()))){
+
+            // Remove used OTP entry for security
             forgetPasswordRepository.deleteById(fp.getF_id());
+
             return new ResponseEntity<>("OTP has expired", HttpStatus.EXPECTATION_FAILED);
         }
-        return ResponseEntity.ok("OTp verified");
+
+        return ResponseEntity.ok("OTP verified");
     }
 
-    @PostMapping("/changePassword")
-    public ResponseEntity<String> changePassword(@RequestBody ChangePassword changePassword){
-
-        var email = (String) session.getAttribute("EMAIL");
-
-        if(!Objects.equals(changePassword.password(), changePassword.repeatPassword())){
+    @PatchMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePassword changePassword, HttpSession session){
+        if(!Objects.equals(changePassword.password(), changePassword.cPassword())){
             return new ResponseEntity<>("please enter the password again", HttpStatus.EXPECTATION_FAILED);
         }
+
+        String email = (String) session.getAttribute("EMAIL");
 
         String encodedPassword = passwordEncoder.encode(changePassword.password());
         memberRepository.updatePassword(email,encodedPassword);

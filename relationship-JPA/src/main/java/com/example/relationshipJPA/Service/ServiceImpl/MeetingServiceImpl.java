@@ -34,11 +34,11 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public MeetingsAndagenda updateConclusion(Long id, MeetingRequest request) {
+    public MeetingsAndagenda updateConclusion(Long id, String request) {
         MeetingsAndagenda meetingsAndagenda = meetingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Meeting","id",id));
-        meetingsAndagenda.setConclusion(request.getConclusion());
-        sendmail.sentMail("Final Conclusion of meeting : " + meetingsAndagenda.getAgenda(), "Conclusion : " + request.getConclusion());
+        meetingsAndagenda.setConclusion(request);
+        sendmail.sentMail("Final Conclusion of meeting : " + meetingsAndagenda.getAgenda(), "Conclusion : " + request);
         return meetingRepository.save(meetingsAndagenda);
     }
 

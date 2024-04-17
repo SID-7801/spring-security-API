@@ -37,20 +37,20 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
         for (Long id : memId) {
 
-            Maintenance maintenance = new Maintenance();
+            Maintenance maintenance2 = maintenanceRepository.findLastMonthMaintenance(LocalDate.now().getMonth(), id);
             Member member = memberRepository.findById(id).orElseThrow();
 
-//            Maintenance newMaintenance = getMaintenanceValue(maintenance, id);
+            Maintenance newMaintenance = getMaintenanceValue(maintenance2, id);
 
-            maintenance.setMember(member);
-            maintenance.setAmount(1000.00);
-            maintenance.setMonth(LocalDate.now().getMonth());
-            maintenance.setPenalties(0.00);
-            maintenance.setDueDate(dueDate);
-            maintenance.setDueAmount(1000);
-            maintenance.setStatus(Status.UNPAID);
+//            maintenance.setMember(member);
+//            maintenance.setAmount(1000.00);
+//            maintenance.setMonth(LocalDate.now().getMonth());
+//            maintenance.setPenalties(0.00);
+//            maintenance.setDueDate(dueDate);
+//            maintenance.setDueAmount(1000);
+//            maintenance.setStatus(Status.UNPAID);
 
-            maintenanceRepository.save(maintenance);
+            maintenanceRepository.save(newMaintenance);
 
         }
         return null;
@@ -61,40 +61,48 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         return memberRepository.getAllId();
     }
 
-/*
     public Maintenance getMaintenanceValue(Maintenance generatedMaintenance, Long id) {
 
         Member member = memberRepository.findById(id).orElseThrow();
-        List<Maintenance> oldMaintenance = maintenanceRepository.findByMemId(id);
+//        List<Maintenance> oldMaintenance = maintenanceRepository.findByMemId(id);
+
+        LocalDate generateDate = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1);
+        LocalDate dueDate = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1 + 19);
 
         double oldMaintenanceAmount;
         double generatedMaintenanceAmount;
-        double maintenanceAmount;
+        double penalties = 200;
 
-        Maintenance newGeneratedMaintenance = null;
-        for (Maintenance maintenance : oldMaintenance) {
-            newGeneratedMaintenance = new Maintenance();
-            if (maintenance != null && maintenance.getStatus().equals(Status.UNPAID)) {
-                // amount calculation
+        Maintenance newGeneratedMaintenance = new Maintenance();
 
-                oldMaintenanceAmount = maintenance.getAmount();
-                generatedMaintenanceAmount = generatedMaintenance.getAmount();
-                generatedMaintenanceAmount += oldMaintenanceAmount;
+        if (generatedMaintenance != null && generatedMaintenance.getStatus().equals(Status.UNPAID)) {
 
-                newGeneratedMaintenance.setAmount(generatedMaintenanceAmount);
-                newGeneratedMaintenance.setMember(member);
-                newGeneratedMaintenance.setMonth(LocalDate.now().getMonth());
-                newGeneratedMaintenance.setPenalties(0.0);
-                newGeneratedMaintenance.setDueDate(null);
-                newGeneratedMaintenance.setStatus(Status.UNPAID);
+            // amount calculation
+            oldMaintenanceAmount = generatedMaintenance.getAmount();
+            generatedMaintenanceAmount = 1000;
+            generatedMaintenanceAmount += oldMaintenanceAmount + penalties;
 
-                System.out.println(newGeneratedMaintenance);
-            } else {
-                maintenanceAmount = 1000.00;
-            }
+            newGeneratedMaintenance.setAmount(generatedMaintenanceAmount);
+            newGeneratedMaintenance.setMember(member);
+            newGeneratedMaintenance.setPenalties(0.0);
+            newGeneratedMaintenance.setMonth(LocalDate.now().getMonth());
+            newGeneratedMaintenance.setDueDate(dueDate);
+            newGeneratedMaintenance.setStatus(Status.UNPAID);
+
+            return newGeneratedMaintenance;
+
+        } else {
+
+            generatedMaintenance.setAmount(1000.0);
+            generatedMaintenance.setMember(member);
+            generatedMaintenance.setMonth(LocalDate.now().getMonth());
+            generatedMaintenance.setPenalties(0.0);
+            generatedMaintenance.setStatus(Status.UNPAID);
+            generatedMaintenance.setDueDate(dueDate);
+
+            return generatedMaintenance;
+
         }
-        return newGeneratedMaintenance;
     }
-*/
 
 }

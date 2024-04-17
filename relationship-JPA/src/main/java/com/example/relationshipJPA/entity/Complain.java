@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Complain {
+public class Complain
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +33,11 @@ public class Complain {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] photo;
+
     @ManyToOne
     @JoinColumn(name = "fk_mem_id")
     private Member mem_id;
+
 }

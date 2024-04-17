@@ -1,5 +1,6 @@
 package com.example.relationshipJPA.controller;
 
+import com.example.relationshipJPA.dao.resquest.ComplainRequest;
 import com.example.relationshipJPA.entity.Complain;
 import com.example.relationshipJPA.service.ComplainService;
 import com.example.relationshipJPA.util.Utils;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class ComplainController {
 
     // register complaint for member, secretory, admin, guard, committee
     @PostMapping("/newComplaint")
-    public ResponseEntity<String> raiseComplain(@RequestBody Complain request) {
+    public ResponseEntity<String> raiseComplain(@RequestBody ComplainRequest request) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         complainService.raiseComplain(request, username);

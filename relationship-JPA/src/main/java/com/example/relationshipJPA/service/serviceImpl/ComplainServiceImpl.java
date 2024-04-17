@@ -1,6 +1,7 @@
 package com.example.relationshipJPA.service.serviceImpl;
 
 import com.example.relationshipJPA.entity.Complain;
+import com.example.relationshipJPA.dao.resquest.ComplainRequest;
 import com.example.relationshipJPA.entity.Member;
 import com.example.relationshipJPA.entity.Status;
 import com.example.relationshipJPA.exception.ResourceNotFoundException;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,7 +29,8 @@ public class ComplainServiceImpl implements ComplainService {
 
 
     @Override
-    public String raiseComplain(Complain request , String userName) {
+    public String raiseComplain(ComplainRequest request , String userName) throws IOException {
+
         Member member = memberRepository.findByEmail(userName).get();
 
         Complain complain = new Complain();
@@ -35,10 +38,12 @@ public class ComplainServiceImpl implements ComplainService {
         complain.setTitle(request.getTitle());
         complain.setComplaintDate(LocalDateTime.now());
         complain.setStatus(Status.PROGRESS);
+        complain.setPhoto(request.getPhoto().getBytes());
         complain.setMem_id(member);
 
         complainRepository.save(complain);
         return "successfully created";
+
     }
 
     @Override

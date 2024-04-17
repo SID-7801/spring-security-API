@@ -1,12 +1,14 @@
 package com.example.relationshipJPA.service;
 
+import com.example.relationshipJPA.dao.resquest.ComplainRequest;
 import com.example.relationshipJPA.entity.Complain;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ComplainService {
 
-    String raiseComplain(Complain request , String userName);
+    String raiseComplain(ComplainRequest request , String userName) throws IOException;
 
     List<Complain> getAllComplains();
 
@@ -14,4 +16,5 @@ public interface ComplainService {
 
     Complain completecomplain(Long id);
     Boolean deleteComplaint(Long compId);
+
 }

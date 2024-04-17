@@ -51,6 +51,15 @@ public class Member implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+//    @OneToOne(mappedBy = "mem_id", cascade = CascadeType.ALL)
+//    private Complain complaint;
+//
+//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+//    private Event event;
+//
+//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+//    private Maintenance maintenance;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

@@ -1,7 +1,7 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Entity.Complain;
-import com.example.relationshipJPA.Service.ComplainService;
+import com.example.relationshipJPA.entity.Complain;
+import com.example.relationshipJPA.service.ComplainService;
 import com.example.relationshipJPA.util.Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

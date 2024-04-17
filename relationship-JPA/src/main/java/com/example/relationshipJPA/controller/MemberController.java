@@ -1,10 +1,9 @@
 package com.example.relationshipJPA.controller;
 
 
-import com.example.relationshipJPA.Dao.Resquest.Signup;
-import com.example.relationshipJPA.Dao.Resquest.UpdateProfileDto;
-import com.example.relationshipJPA.Entity.Member;
-import com.example.relationshipJPA.Service.AuthenticationService;
+import com.example.relationshipJPA.dao.resquest.UpdateProfileDto;
+import com.example.relationshipJPA.entity.Member;
+import com.example.relationshipJPA.service.AuthenticationService;
 import com.example.relationshipJPA.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

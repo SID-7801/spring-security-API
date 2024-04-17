@@ -1,10 +1,10 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Dao.JwtAuthenticationResponse;
-import com.example.relationshipJPA.Dao.Resquest.Signin;
-import com.example.relationshipJPA.Dao.Resquest.Signup;
-import com.example.relationshipJPA.Service.AuthenticationService;
-import com.example.relationshipJPA.Service.JwtService;
+import com.example.relationshipJPA.dao.JwtAuthenticationResponse;
+import com.example.relationshipJPA.dao.resquest.Signin;
+import com.example.relationshipJPA.dao.resquest.Signup;
+import com.example.relationshipJPA.service.AuthenticationService;
+import com.example.relationshipJPA.service.JwtService;
 import com.example.relationshipJPA.util.Utils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

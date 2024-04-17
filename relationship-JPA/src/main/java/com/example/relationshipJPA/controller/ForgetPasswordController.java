@@ -1,12 +1,12 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Dao.Resquest.ChangePassword;
-import com.example.relationshipJPA.Dao.Resquest.Mail;
-import com.example.relationshipJPA.Entity.ForgetPassword;
-import com.example.relationshipJPA.Entity.Member;
-import com.example.relationshipJPA.Repository.ForgetPasswordRepository;
-import com.example.relationshipJPA.Repository.MemberRepository;
-import com.example.relationshipJPA.Service.sendmail;
+import com.example.relationshipJPA.dao.resquest.ChangePassword;
+import com.example.relationshipJPA.dao.resquest.Mail;
+import com.example.relationshipJPA.entity.ForgetPassword;
+import com.example.relationshipJPA.entity.Member;
+import com.example.relationshipJPA.repository.ForgetPasswordRepository;
+import com.example.relationshipJPA.repository.MemberRepository;
+import com.example.relationshipJPA.service.sendmail;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

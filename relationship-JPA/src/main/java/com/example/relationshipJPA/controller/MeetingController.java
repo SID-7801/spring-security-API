@@ -1,9 +1,8 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Dao.Resquest.MeetingRequest;
-import com.example.relationshipJPA.Entity.GuestUser;
-import com.example.relationshipJPA.Entity.MeetingsAndagenda;
-import com.example.relationshipJPA.Service.MeetingService;
+import com.example.relationshipJPA.dao.resquest.MeetingRequest;
+import com.example.relationshipJPA.entity.MeetingsAndagenda;
+import com.example.relationshipJPA.service.MeetingService;
 import com.example.relationshipJPA.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

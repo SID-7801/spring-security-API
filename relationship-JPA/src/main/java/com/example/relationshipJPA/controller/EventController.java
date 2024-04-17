@@ -1,8 +1,7 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Entity.Event;
-import com.example.relationshipJPA.Service.EventService;
-import com.example.relationshipJPA.Service.MemberService;
+import com.example.relationshipJPA.entity.Event;
+import com.example.relationshipJPA.service.EventService;
 import com.example.relationshipJPA.util.Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor

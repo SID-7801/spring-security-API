@@ -1,7 +1,7 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Entity.ContactUs;
-import com.example.relationshipJPA.Service.ContactUsService;
+import com.example.relationshipJPA.entity.ContactUs;
+import com.example.relationshipJPA.service.ContactUsService;
 import com.example.relationshipJPA.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

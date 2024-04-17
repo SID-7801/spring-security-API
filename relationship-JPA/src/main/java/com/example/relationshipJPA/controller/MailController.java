@@ -1,7 +1,7 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Dao.Resquest.Mail;
-import com.example.relationshipJPA.Service.sendmail;
+import com.example.relationshipJPA.dao.resquest.Mail;
+import com.example.relationshipJPA.service.sendmail;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

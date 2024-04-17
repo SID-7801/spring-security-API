@@ -1,8 +1,7 @@
 package com.example.relationshipJPA.controller;
 
-import com.example.relationshipJPA.Entity.GuestUser;
-import com.example.relationshipJPA.Exception.ResourceNotFoundException;
-import com.example.relationshipJPA.Service.GuestUserService;
+import com.example.relationshipJPA.entity.GuestUser;
+import com.example.relationshipJPA.service.GuestUserService;
 import com.example.relationshipJPA.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

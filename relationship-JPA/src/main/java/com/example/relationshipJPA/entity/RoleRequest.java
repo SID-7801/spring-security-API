@@ -1,5 +1,6 @@
 package com.example.relationshipJPA.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,33 +12,31 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Event {
+@Builder
+public class RoleRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long funcid;
+    private Long srNo;
 
-    private String title;
+    @Enumerated(value = EnumType.STRING)
+    private Role requestedRole;
 
-    @Column(nullable = false)
-    private String funcType;
+    private LocalDateTime requestDate;
+    private LocalDateTime approvedDate;
 
-    @Column(nullable = false)
-    private LocalDate dateFrom;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
 
-    @Column(nullable = false)
-    private LocalDate dateTo;
-
-    @Column(nullable = false)
-    private LocalDateTime bookingDate;
+    @Enumerated(value = EnumType.STRING)
+    private Role approvedBy;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @ManyToOne
-    @JoinColumn(name = "fk_mem_id")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 }

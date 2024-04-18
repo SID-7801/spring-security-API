@@ -1,17 +1,23 @@
 package com.example.relationshipJPA.service.serviceImpl;
 
 import com.example.relationshipJPA.dao.JwtAuthenticationResponse;
+import com.example.relationshipJPA.dao.resquest.RoleRequestDto;
 import com.example.relationshipJPA.dao.resquest.Signin;
 import com.example.relationshipJPA.dao.resquest.Signup;
 import com.example.relationshipJPA.dao.resquest.UpdateProfileDto;
 import com.example.relationshipJPA.entity.Member;
 import com.example.relationshipJPA.entity.Role;
+import com.example.relationshipJPA.entity.RoleRequest;
 import com.example.relationshipJPA.entity.Status;
 import com.example.relationshipJPA.repository.MemberRepository;
+import com.example.relationshipJPA.repository.RoleRequestRepository;
 import com.example.relationshipJPA.service.AuthenticationService;
 import com.example.relationshipJPA.service.JwtService;
+import com.example.relationshipJPA.util.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +39,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private RoleRequestRepository roleRequestRepository;
 
     @Override
     public Boolean signup(Signup request) {
@@ -101,4 +110,28 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return true;
     }
 
+    @Override
+    public Boolean roleRequest(RoleRequestDto request, String email)
+    {
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+
+        RoleRequest roleRequest = RoleRequest.builder()
+                .requestedRole(request.getRequestedRole())
+                .requestDate(LocalDateTime.now())
+                .approvedDate(null)
+                .status(Status.NOT_APPROVED)
+                .approvedBy(null)
+                .member(member)
+                .build();
+
+        roleRequestRepository.save(roleRequest);
+        return true;
+    }
+
+    // check user already submitted request
+    public Boolean checkUserRequest(Long id)
+    {
+        RoleRequest query = roleRequestRepository.checkPendingRequestRole(id);
+        return query == null;
+    }
 }

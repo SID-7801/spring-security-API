@@ -1,6 +1,8 @@
 package com.example.relationshipJPA.entity;
 
-public enum Status {
+public enum Status
+{
+
     PROGRESS,
     COMPLETED,
     CHECKED_IN,
@@ -9,4 +11,5 @@ public enum Status {
     UNPAID,
     APPROVED,
     NOT_APPROVED,
+
 }

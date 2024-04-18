@@ -1,7 +1,10 @@
 package com.example.relationshipJPA.entity;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -38,6 +41,7 @@ public class Maintenance {
 	@Column(nullable = false)
 	private Status status;
 
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_mem_id")
 	private Member member;

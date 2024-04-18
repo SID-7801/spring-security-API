@@ -8,5 +8,4 @@ public enum Role {
     SECRETORY,
     COMMITTEE,
     GUARD,
-    GUEST_USER
 }

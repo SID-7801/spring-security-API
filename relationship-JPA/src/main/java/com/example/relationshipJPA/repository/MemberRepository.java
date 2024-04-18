@@ -26,9 +26,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("update Member u set u.password = ?2 where u.email = ?1")
     void updatePassword(String email, String password);
 
-    @Query(value = "SELECT * FROM Member WHERE status LIKE 'NOT_APPROVED'", nativeQuery = true)
-    List<Member> findUserByStatus();
-
     @Query(value = "SELECT id FROM Member WHERE NOT role = 'GUARD'", nativeQuery = true)
     List<Long> getAllId();
 

@@ -1,6 +1,7 @@
 package com.example.relationshipJPA.controller;
 
 import com.example.relationshipJPA.entity.Member;
+import com.example.relationshipJPA.entity.RoleRequest;
 import com.example.relationshipJPA.service.AdminService;
 import com.example.relationshipJPA.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,7 @@ public class AdminController {
 
     // delete api for deleting members from database
     @DeleteMapping("/delete-member/{id}")
-    public ResponseEntity<String> deleteMember(@PathVariable Long id)
-    {
+    public ResponseEntity<String> deleteMember(@PathVariable Long id) {
         if (adminService.deleteMember(id))
             return Utils.getResponseEntity("User deleted successfully!", HttpStatus.OK);
         else
@@ -36,7 +36,7 @@ public class AdminController {
 
     // view approvals api for admin
     @GetMapping("/requests")
-    public List<Member> viewNotApprovedUsers() {
+    public List<RoleRequest> viewNotApprovedUsers() {
         return adminService.viewNotApprovedUsers();
     }
 
@@ -57,5 +57,4 @@ public class AdminController {
         else
             return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 }

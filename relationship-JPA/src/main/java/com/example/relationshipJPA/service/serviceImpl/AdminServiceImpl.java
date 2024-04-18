@@ -2,8 +2,10 @@ package com.example.relationshipJPA.service.serviceImpl;
 
 import com.example.relationshipJPA.entity.Member;
 import com.example.relationshipJPA.entity.Role;
+import com.example.relationshipJPA.entity.RoleRequest;
 import com.example.relationshipJPA.entity.Status;
 import com.example.relationshipJPA.repository.MemberRepository;
+import com.example.relationshipJPA.repository.RoleRequestRepository;
 import com.example.relationshipJPA.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private RoleRequestRepository roleRequestRepository;
 
     @Override
     public List<Member> getMembers()
@@ -30,9 +35,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Member> viewNotApprovedUsers()
+    public List<RoleRequest> viewNotApprovedUsers()
     {
-        return memberRepository.findUserByStatus();
+        return roleRequestRepository.findUserByStatus();
     }
 
     @Override

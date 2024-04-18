@@ -1,8 +1,11 @@
 package com.example.relationshipJPA.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,14 +54,30 @@ public class Member implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-//    @OneToOne(mappedBy = "mem_id", cascade = CascadeType.ALL)
-//    private Complain complaint;
-//
-//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-//    private Event event;
-//
-//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-//    private Maintenance maintenance;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "mem_id")
+    private List<Complain> complaint;
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Event> event;
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<ForgetPassword> forgetPassword;
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Maintenance> maintenance;
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<RoleRequest> roleRequest;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

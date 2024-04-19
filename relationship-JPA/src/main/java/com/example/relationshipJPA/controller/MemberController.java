@@ -47,9 +47,11 @@ public class MemberController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
-        if(authenticationService.checkUserRequest(request.getMember().getId()))
+        Member member = authenticationService.getUserData(email);
+
+        if(!authenticationService.checkUserRequest(member.getId()))
         {
-            return Utils.getResponseEntity("Already pending request present!", HttpStatus.BAD_REQUEST);
+            return Utils.getResponseEntity("Your previous request is already pending", HttpStatus.BAD_REQUEST);
         }
 
         if (authenticationService.roleRequest(request, email)) {

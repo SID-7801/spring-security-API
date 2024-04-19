@@ -32,4 +32,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "SELECT id FROM Member WHERE email = :email", nativeQuery = true)
     Long findIdByEmail(String email);
 
+    @Query(value = "SELECT * FROM Member WHERE NOT role = 'ADMIN'", nativeQuery = true)
+    List<Member> getAllMembersExceptAdmin();
+
 }

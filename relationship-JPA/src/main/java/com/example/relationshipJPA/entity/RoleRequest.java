@@ -32,8 +32,7 @@ public class RoleRequest {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    @Enumerated(value = EnumType.STRING)
-    private Role approvedBy;
+    private String approvedBy;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore

@@ -8,9 +8,13 @@ import com.example.relationshipJPA.repository.MemberRepository;
 import com.example.relationshipJPA.repository.RoleRequestRepository;
 import com.example.relationshipJPA.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -24,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Member> getMembers()
     {
-        return memberRepository.findAll();
+        return memberRepository.getAllMembersExceptAdmin();
     }
 
     @Override
@@ -43,10 +47,22 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Boolean approveUser(Long id)
     {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String approvedUsername = authentication.getName();
+
         Member member = memberRepository.findById(id).orElseThrow();
+        RoleRequest role = roleRequestRepository.checkPendingRequestRole(id);
+
         member.setStatus(Status.APPROVED);
+        role.setStatus(Status.APPROVED);
+        role.setApprovedBy(approvedUsername);
+        role.setApprovedDate(LocalDateTime.now());
+
+        roleRequestRepository.save(role);
         memberRepository.save(member);
         return true;
+
     }
 
     @Override
@@ -58,5 +74,4 @@ public class AdminServiceImpl implements AdminService {
         memberRepository.save(member);
         return true;
     }
-
 }

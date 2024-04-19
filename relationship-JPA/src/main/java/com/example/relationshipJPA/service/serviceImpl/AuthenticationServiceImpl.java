@@ -45,20 +45,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Boolean signup(Signup request) {
         if (checkUser(request.getEmail())) {
-            Role userRole = request.getRole();
-            if (userRole == Role.MEMBER) {
+            if (request.getRole() == Role.MEMBER) {
                 var member = Member.builder().name(request.getName())
                         .email(request.getEmail())
                         .password(passwordEncoder.encode(request.getPassword()))
                         .wing(request.getWing())
                         .flat(request.getFlat())
                         .mobile(request.getMobile())
-                        .role(userRole)
+                        .role(Role.MEMBER)
                         .status(Status.APPROVED)
                         .acCreateDate(LocalDate.now())
                         .build();
                 memberRepository.save(member);
-            } else {
+            }
+            else{
                 var member = Member.builder().name(request.getName())
                         .email(request.getEmail())
                         .password(passwordEncoder.encode(request.getPassword()))
@@ -111,26 +111,32 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Boolean roleRequest(RoleRequestDto request, String email)
-    {
+    public Boolean roleRequest(RoleRequestDto request, String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow();
 
-        RoleRequest roleRequest = RoleRequest.builder()
-                .requestedRole(request.getRequestedRole())
-                .requestDate(LocalDateTime.now())
-                .approvedDate(null)
-                .status(Status.NOT_APPROVED)
-                .approvedBy(null)
-                .member(member)
-                .build();
+        RoleRequest roleRequest = new RoleRequest();
+
+        roleRequest.setRequestedRole(request.getRequestedRole());
+        roleRequest.setRequestDate(LocalDateTime.now());
+        roleRequest.setApprovedDate(null);
+        roleRequest.setApprovedBy(null);
+        roleRequest.setStatus(Status.NOT_APPROVED);
+        roleRequest.setMember(member);
+
+//                .requestedRole(request.getRequestedRole())
+//                .requestDate(LocalDateTime.now())
+//                .approvedDate(null)
+//                .status(Status.NOT_APPROVED)
+//                .approvedBy(null)
+//                .member(member)
+//                .build();
 
         roleRequestRepository.save(roleRequest);
         return true;
     }
 
     // check user already submitted request
-    public Boolean checkUserRequest(Long id)
-    {
+    public Boolean checkUserRequest(Long id) {
         RoleRequest query = roleRequestRepository.checkPendingRequestRole(id);
         return query == null;
     }

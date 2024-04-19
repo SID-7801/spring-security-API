@@ -22,6 +22,11 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
         return true;
     }
 
+    public List<NoticeBoard> viewNoticeOfTheDay()
+    {
+        return noticeBoardRepository.findNoticeOfTheDay(LocalDate.now());
+    }
+
     public List<NoticeBoard> viewAll()
     {
         return noticeBoardRepository.findAll();

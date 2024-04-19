@@ -24,10 +24,15 @@ public class NoticeBoardController {
         return Utils.getResponseEntity("Notice created!", HttpStatus.OK);
     }
 
-    @GetMapping("/view-all")
+    @GetMapping("/view")
     public List<NoticeBoard> viewAll()
+    {
+        return noticeBoardService.viewNoticeOfTheDay();
+    }
+
+    @GetMapping("/view-all")
+    public List<NoticeBoard> viewCurrentDate()
     {
         return noticeBoardService.viewAll();
     }
-
 }

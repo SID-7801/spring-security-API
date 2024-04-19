@@ -7,6 +7,7 @@ import java.util.List;
 public interface NoticeBoardService {
 
     Boolean createNotice(NoticeBoard request);
+    List<NoticeBoard> viewNoticeOfTheDay();
     List<NoticeBoard> viewAll();
 
 }

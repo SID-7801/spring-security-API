@@ -43,6 +43,10 @@ public class Member implements UserDetails {
     @Column(nullable = false)
     private LocalDate acCreateDate;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] photo;
+
     @Column(nullable = false)
     @Size(min = 10,max = 10)
     private String mobile;

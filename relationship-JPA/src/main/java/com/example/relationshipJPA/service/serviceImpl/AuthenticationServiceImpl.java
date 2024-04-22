@@ -23,7 +23,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -107,6 +109,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setMobile(request.getMobile());
 
         memberRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public Boolean updateProfilePic(MultipartFile photo, Member member) throws IOException {
+        member.setPhoto(photo.getBytes());
+        memberRepository.save(member);
         return true;
     }
 

@@ -9,6 +9,9 @@ import com.example.relationshipJPA.entity.Member;
 import com.example.relationshipJPA.entity.RoleRequest;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface AuthenticationService {
 
@@ -18,5 +21,6 @@ public interface AuthenticationService {
     Member getUserData(String username);
     Boolean roleRequest(RoleRequestDto request, String email);
     Boolean checkUserRequest(Long id);
+    Boolean updateProfilePic(MultipartFile photo, Member member) throws IOException;
 }
 

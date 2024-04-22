@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/lwresident/v1/member")
@@ -59,6 +62,20 @@ public class MemberController {
         } else {
             return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+    }
+
+    @PatchMapping("/update-profile-pic")
+    public ResponseEntity<String> updateProfilePic(MultipartFile photo) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        Member member = authenticationService.getUserData(email);
+
+        if(authenticationService.updateProfilePic(photo, member))
+            return Utils.getResponseEntity("updated profile", HttpStatus.OK);
+        else
+            return Utils.getResponseEntity("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 

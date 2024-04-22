@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,5 +30,12 @@ public class GlobalExceptionHandler {
             response.put(fieldName, message);
         });
         return new ResponseEntity<Map<String, String>>(response, HttpStatus.BAD_REQUEST);
+    }
+
+//    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ApiResponse> noSuchElementException(NoSuchElementException ex) {
+        String message = ex.getMessage();
+        ApiResponse response = new ApiResponse(message, false);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }

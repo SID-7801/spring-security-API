@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/lwresident/v1/auth")
 @RequiredArgsConstructor
@@ -28,7 +30,7 @@ public class AuthenticationController {
     private UserDetails userDetails;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody @Valid Signup request) {
+    public ResponseEntity<String> signup(@ModelAttribute @Valid Signup request) throws IOException {
         if (authenticationService.signup(request))
             return Utils.getResponseEntity("Account created successfully", HttpStatus.OK);
         else

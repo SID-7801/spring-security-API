@@ -32,13 +32,14 @@ public class ComplainServiceImpl implements ComplainService {
     public String raiseComplain(ComplainRequest request , String userName) throws IOException {
 
         Member member = memberRepository.findByEmail(userName).get();
+        byte[] bytes = request.getPhoto().getBytes();
 
         Complain complain = new Complain();
         complain.setDescription(request.getDescription());
         complain.setTitle(request.getTitle());
         complain.setComplaintDate(LocalDateTime.now());
         complain.setStatus(Status.PROGRESS);
-        complain.setPhoto(request.getPhoto().getBytes());
+        complain.setPhoto(bytes);
         complain.setMem_id(member);
 
         complainRepository.save(complain);

@@ -9,9 +9,13 @@ import com.example.relationshipJPA.repository.RoleRequestRepository;
 import com.example.relationshipJPA.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+import java.security.Security;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -26,37 +30,30 @@ public class AdminServiceImpl implements AdminService {
     private RoleRequestRepository roleRequestRepository;
 
     @Override
-    public List<Member> getMembers()
-    {
+    public List<Member> getMembers() {
         return memberRepository.getAllMembersExceptAdmin();
     }
 
     @Override
-    public Boolean deleteMember(Long id)
-    {
+    public Boolean deleteMember(Long id) {
         memberRepository.deleteById(id);
         return true;
     }
 
     @Override
-    public List<RoleRequest> viewNotApprovedUsers()
-    {
+    public List<RoleRequest> viewNotApprovedUsers() {
         return roleRequestRepository.findUserByStatus();
     }
 
     @Override
-    public Boolean approveUser(Long id)
-    {
+    public Boolean approveUser(Long id, String userName) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String approvedUsername = authentication.getName();
-
-        Member member = memberRepository.findById(id).orElseThrow();
-        RoleRequest role = roleRequestRepository.checkPendingRequestRole(id);
+        RoleRequest role = roleRequestRepository.findById(id).orElseThrow();
+        Member member = memberRepository.findById(role.getMember().getId()).orElseThrow();
 
         member.setStatus(Status.APPROVED);
         role.setStatus(Status.APPROVED);
-        role.setApprovedBy(approvedUsername);
+        role.setApprovedBy(userName);
         role.setApprovedDate(LocalDateTime.now());
 
         roleRequestRepository.save(role);
@@ -66,8 +63,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Boolean declineUser(Long id)
-    {
+    public Boolean declineUser(Long id) {
         Member member = memberRepository.findById(id).orElseThrow();
         member.setStatus(Status.APPROVED);
         member.setRole(Role.MEMBER);

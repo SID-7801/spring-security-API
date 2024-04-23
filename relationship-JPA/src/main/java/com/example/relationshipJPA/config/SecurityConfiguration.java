@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -53,16 +54,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers(
+
                         "/lwresident/v1/**"
-//                                "/lwresident/v1/auth/**",
-//                                "/lwresident/v1/guest/**",
-//                                "/lwresident/v1/admin/**",
-//                                "/lwresident/v1/complaint/**",
-//                                "/lwresident/v1/contactus/**",
-//                                "/lwresident/v1/events/**",
-//                                "/lwresident/v1/maintenance/**",
-//                                "/lwresident/v1/member/**",
-//                                "/lwresident/v1/forgetPassword/**"
+
                         )
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

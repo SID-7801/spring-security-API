@@ -1,11 +1,15 @@
 package com.example.relationshipJPA.dao.resquest;
 
 import com.example.relationshipJPA.entity.Role;
+import jakarta.mail.Multipart;
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +33,7 @@ public class Signup {
     private String mobile;
     @NotNull(message = "not valid role")
     private Role role;
+    private MultipartFile photo;
 }
 
 

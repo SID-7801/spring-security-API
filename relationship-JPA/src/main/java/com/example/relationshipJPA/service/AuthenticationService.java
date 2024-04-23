@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public interface AuthenticationService {
 
-    Boolean signup(Signup request);
+    Boolean signup(Signup request) throws IOException;
     JwtAuthenticationResponse signin(Signin request);
     boolean updateProfile(UpdateProfileDto request, String username);
     Member getUserData(String username);

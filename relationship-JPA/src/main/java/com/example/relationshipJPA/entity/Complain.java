@@ -35,6 +35,7 @@ public class Complain
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] photo;
 

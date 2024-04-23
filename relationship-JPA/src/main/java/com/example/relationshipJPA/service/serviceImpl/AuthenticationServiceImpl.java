@@ -45,15 +45,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private RoleRequestRepository roleRequestRepository;
 
     @Override
-    public Boolean signup(Signup request) {
+    public Boolean signup(Signup request) throws IOException {
         if (checkUser(request.getEmail())) {
             if (request.getRole() == Role.MEMBER) {
+                byte[] bytePhoto = request.getPhoto().getBytes();
+
                 var member = Member.builder().name(request.getName())
                         .email(request.getEmail())
                         .password(passwordEncoder.encode(request.getPassword()))
                         .wing(request.getWing())
                         .flat(request.getFlat())
                         .mobile(request.getMobile())
+                        .photo(bytePhoto)
                         .role(Role.MEMBER)
                         .status(Status.APPROVED)
                         .acCreateDate(LocalDate.now())
@@ -61,17 +64,31 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 memberRepository.save(member);
             }
             else{
+                byte[] bytePhoto = request.getPhoto().getBytes();
                 var member = Member.builder().name(request.getName())
                         .email(request.getEmail())
                         .password(passwordEncoder.encode(request.getPassword()))
                         .wing(request.getWing())
+                        .photo(bytePhoto)
                         .flat(request.getFlat())
                         .mobile(request.getMobile())
                         .role(request.getRole())
                         .status(Status.NOT_APPROVED)
                         .acCreateDate(LocalDate.now())
                         .build();
+
                 memberRepository.save(member);
+
+                RoleRequest roleRequest = RoleRequest.builder()
+                        .requestedRole(request.getRole())
+                        .requestDate(LocalDateTime.now())
+                        .approvedDate(null)
+                        .approvedBy(null)
+                        .status(Status.NOT_APPROVED)
+                        .member(member)
+                        .build();
+
+                roleRequestRepository.save(roleRequest);
             }
             return true;
         } else {
@@ -123,22 +140,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public Boolean roleRequest(RoleRequestDto request, String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow();
 
-        RoleRequest roleRequest = new RoleRequest();
-
-        roleRequest.setRequestedRole(request.getRequestedRole());
-        roleRequest.setRequestDate(LocalDateTime.now());
-        roleRequest.setApprovedDate(null);
-        roleRequest.setApprovedBy(null);
-        roleRequest.setStatus(Status.NOT_APPROVED);
-        roleRequest.setMember(member);
-
-//                .requestedRole(request.getRequestedRole())
-//                .requestDate(LocalDateTime.now())
-//                .approvedDate(null)
-//                .status(Status.NOT_APPROVED)
-//                .approvedBy(null)
-//                .member(member)
-//                .build();
+        RoleRequest roleRequest = RoleRequest.builder()
+                .requestedRole(request.getRequestedRole())
+                .requestDate(LocalDateTime.now())
+                .approvedDate(null)
+                .approvedBy(null)
+                .status(Status.NOT_APPROVED)
+                .member(member)
+                .build();
 
         roleRequestRepository.save(roleRequest);
         return true;

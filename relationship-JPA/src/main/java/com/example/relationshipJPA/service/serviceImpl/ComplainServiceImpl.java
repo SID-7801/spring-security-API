@@ -8,9 +8,11 @@ import com.example.relationshipJPA.exception.ResourceNotFoundException;
 import com.example.relationshipJPA.repository.ComplainRepository;
 import com.example.relationshipJPA.repository.MemberRepository;
 import com.example.relationshipJPA.service.ComplainService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -29,7 +31,7 @@ public class ComplainServiceImpl implements ComplainService {
 
 
     @Override
-    public String raiseComplain(ComplainRequest request , String userName) throws IOException {
+    public String raiseComplain(@Valid ComplainRequest request , String userName) throws IOException {
 
         Member member = memberRepository.findByEmail(userName).get();
         byte[] bytes = request.getPhoto().getBytes();

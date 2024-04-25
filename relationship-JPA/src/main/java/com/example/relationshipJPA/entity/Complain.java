@@ -1,6 +1,8 @@
 package com.example.relationshipJPA.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +25,10 @@ public class Complain
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long comid;
 
-    @Column(nullable = false)
+    @NotEmpty(message = "invalid description")
     private String description;
 
-    @Column(nullable = false)
+    @NotEmpty(message = "invalid title")
     private String title;
 
     @Column(nullable = false)

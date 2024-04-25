@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<Map<String, String>>(response, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(NoSuchElementException.class)
+    @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ApiResponse> noSuchElementException(NoSuchElementException ex) {
         String message = ex.getMessage();
         ApiResponse response = new ApiResponse(message, false);

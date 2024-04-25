@@ -25,7 +25,7 @@ public class ComplainController {
 
     // register complaint for member, secretory, admin, guard, committee
     @PostMapping("/newComplaint")
-    public ResponseEntity<String> raiseComplain(@RequestBody ComplainRequest request) throws IOException {
+    public ResponseEntity<String> raiseComplain(@ModelAttribute ComplainRequest request) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         complainService.raiseComplain(request, username);

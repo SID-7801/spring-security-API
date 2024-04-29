@@ -51,10 +51,10 @@ public class AdminServiceImpl implements AdminService {
         RoleRequest role = roleRequestRepository.findById(id).orElseThrow();
         Member member = memberRepository.findById(role.getMember().getId()).orElseThrow();
 
-        member.setStatus(Status.APPROVED);
         role.setStatus(Status.APPROVED);
         role.setApprovedBy(userName);
         role.setApprovedDate(LocalDateTime.now());
+        member.setStatus(Status.APPROVED);
 
         roleRequestRepository.save(role);
         memberRepository.save(member);

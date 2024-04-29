@@ -29,7 +29,6 @@ public class ComplainServiceImpl implements ComplainService {
     @Autowired
     private MemberRepository memberRepository;
 
-
     @Override
     public String raiseComplain(@Valid ComplainRequest request , String userName) throws IOException {
 
@@ -46,7 +45,6 @@ public class ComplainServiceImpl implements ComplainService {
 
         complainRepository.save(complain);
         return "successfully created";
-
     }
 
     @Override

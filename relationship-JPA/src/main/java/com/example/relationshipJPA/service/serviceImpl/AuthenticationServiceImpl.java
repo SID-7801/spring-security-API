@@ -48,7 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public Boolean signup(Signup request) throws IOException {
         if (checkUser(request.getEmail())) {
             if (request.getRole() == Role.MEMBER) {
-                byte[] bytePhoto = request.getPhoto().getBytes();
+//                byte[] bytePhoto = request.getPhoto().getBytes();
 
                 var member = Member.builder().name(request.getName())
                         .email(request.getEmail())
@@ -56,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                         .wing(request.getWing())
                         .flat(request.getFlat())
                         .mobile(request.getMobile())
-                        .photo(bytePhoto)
+//                        .photo(bytePhoto)
                         .role(Role.MEMBER)
                         .status(Status.APPROVED)
                         .acCreateDate(LocalDate.now())
@@ -64,12 +64,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 memberRepository.save(member);
             }
             else{
-                byte[] bytePhoto = request.getPhoto().getBytes();
+//                byte[] bytePhoto = request.getPhoto().getBytes();
                 var member = Member.builder().name(request.getName())
                         .email(request.getEmail())
                         .password(passwordEncoder.encode(request.getPassword()))
                         .wing(request.getWing())
-                        .photo(bytePhoto)
+//                        .photo(bytePhoto)
                         .flat(request.getFlat())
                         .mobile(request.getMobile())
                         .role(request.getRole())
@@ -117,8 +117,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public boolean updateProfile(UpdateProfileDto request, String username) {
+    public boolean updateProfile(UpdateProfileDto request, String username) throws IOException {
         Member user = memberRepository.findByEmail(username).orElseThrow();
+//        byte[] photoByte = request.getPhoto().getBytes();
         user.setEmail(user.getEmail());
         user.setName(request.getName());
         user.setWing(request.getWing());

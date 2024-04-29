@@ -26,7 +26,7 @@ public class MemberController {
 
     // update user profile for all users
     @PatchMapping("/updateProfile")
-    public ResponseEntity<String> updateProfile(@RequestBody UpdateProfileDto request) {
+    public ResponseEntity<String> updateProfile(@RequestBody UpdateProfileDto request) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         if (authenticationService.updateProfile(request, username)) {

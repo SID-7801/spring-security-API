@@ -17,7 +17,7 @@ public interface AuthenticationService {
 
     Boolean signup(Signup request) throws IOException;
     JwtAuthenticationResponse signin(Signin request);
-    boolean updateProfile(UpdateProfileDto request, String username);
+    boolean updateProfile(UpdateProfileDto request, String username) throws IOException;
     Member getUserData(String username);
     Boolean roleRequest(RoleRequestDto request, String email);
     Boolean checkUserRequest(Long id);

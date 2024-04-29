@@ -1,4 +1,4 @@
-package com.example.relationshipJPA.entity;
+package com.example.relationshipJPA.dao.resquest;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -9,12 +9,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ContactUs {
+public class ContactUsDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sr;

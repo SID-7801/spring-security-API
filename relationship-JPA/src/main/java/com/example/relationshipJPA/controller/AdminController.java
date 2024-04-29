@@ -45,7 +45,7 @@ public class AdminController {
     }
 
     // approve users api
-    @PatchMapping("/requests/approve/{id}")
+    @PutMapping("/requests/approve/{id}")
     public ResponseEntity<String> approveUser(@PathVariable Long id) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

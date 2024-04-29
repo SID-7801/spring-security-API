@@ -1,5 +1,6 @@
 package com.example.relationshipJPA.service.serviceImpl;
 
+import com.example.relationshipJPA.dao.resquest.ContactUsDto;
 import com.example.relationshipJPA.entity.ContactUs;
 import com.example.relationshipJPA.repository.ContactUsRepository;
 import com.example.relationshipJPA.service.ContactUsService;
@@ -13,10 +14,16 @@ public class ContactUsServiceImpl implements ContactUsService {
     private ContactUsRepository contactUsRepository;
 
     @Override
-    public Boolean submitContact(ContactUs request)
+    public Boolean submitContact(ContactUsDto request)
     {
-        contactUsRepository.save(request);
-        System.out.println(request);
+        var newRequest = ContactUs.builder()
+                .fullName(request.getFullName())
+                .email(request.getEmail())
+                .mobile(request.getMobile())
+                .message(request.getMessage()).
+                build();
+
+        contactUsRepository.save(newRequest);
         return true;
     }
 }

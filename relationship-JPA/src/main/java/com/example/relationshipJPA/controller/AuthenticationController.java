@@ -30,7 +30,7 @@ public class AuthenticationController {
     private UserDetails userDetails;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@ModelAttribute @Valid Signup request) throws IOException {
+    public ResponseEntity<String> signup(@RequestBody Signup request) throws IOException {
         if (authenticationService.signup(request))
             return Utils.getResponseEntity("Account created successfully", HttpStatus.OK);
         else

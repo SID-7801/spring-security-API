@@ -1,8 +1,10 @@
 package com.example.relationshipJPA.controller;
 
+import com.example.relationshipJPA.dao.resquest.ContactUsDto;
 import com.example.relationshipJPA.entity.ContactUs;
 import com.example.relationshipJPA.service.ContactUsService;
 import com.example.relationshipJPA.util.Utils;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,7 @@ public class ContactUsController {
     private ContactUsService contactUsService;
 
     @PostMapping("/submit")
-    public ResponseEntity<String> submitContact(@RequestBody ContactUs request)
+    public ResponseEntity<String> submitContact(@Valid @RequestBody ContactUsDto request)
     {
         if(contactUsService.submitContact(request))
         {

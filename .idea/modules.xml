@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/relationship-JPA/relationship-JPA.iml" filepath="$PROJECT_DIR$/relationship-JPA/relationship-JPA.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/spring-security-API-.iml" filepath="$PROJECT_DIR$/.idea/spring-security-API-.iml" />
     </modules>
   </component>

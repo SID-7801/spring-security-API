@@ -7,6 +7,8 @@ import com.example.relationshipJPA.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +23,11 @@ public class MeetingController {
     // ADMIN & Secretory api for  create meeting
     @PostMapping("/create")
     public ResponseEntity<String> raiseMeeting(@RequestBody MeetingRequest request){
-        meetingService.raiseMeeting(request);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        meetingService.raiseMeeting(request, username);
         return Utils.getResponseEntity("Meeting successfully scheduled", HttpStatus.OK);
     }
 

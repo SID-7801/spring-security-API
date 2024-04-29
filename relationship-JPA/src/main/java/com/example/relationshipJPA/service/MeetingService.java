@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MeetingService {
 
-    MeetingsAndagenda raiseMeeting(MeetingRequest request);
+    MeetingsAndagenda raiseMeeting(MeetingRequest request, String username);
 
     MeetingsAndagenda updateConclusion(Long id, String request);
 

@@ -1,5 +1,6 @@
 package com.example.relationshipJPA.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class MeetingsAndagenda {
     private String conclusion;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Member createdBy;
 

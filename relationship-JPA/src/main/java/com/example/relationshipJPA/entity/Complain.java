@@ -1,6 +1,7 @@
 package com.example.relationshipJPA.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 @Entity
 public class Complain
 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long comid;
@@ -42,8 +41,8 @@ public class Complain
     private byte[] photo;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_mem_id")
     private Member mem_id;
-
 }

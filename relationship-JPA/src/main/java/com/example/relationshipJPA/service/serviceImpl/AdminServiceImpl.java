@@ -48,8 +48,8 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Boolean approveUser(Long id, String userName) {
 
-        RoleRequest role = roleRequestRepository.findById(id).orElseThrow();
-        Member member = memberRepository.findById(role.getMember().getId()).orElseThrow();
+        RoleRequest role = roleRequestRepository.findById(id).get();
+        Member member = memberRepository.findById(role.getMember().getId()).get();
 
         role.setStatus(Status.APPROVED);
         role.setApprovedBy(userName);
@@ -59,7 +59,6 @@ public class AdminServiceImpl implements AdminService {
         roleRequestRepository.save(role);
         memberRepository.save(member);
         return true;
-
     }
 
     @Override
